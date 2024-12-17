@@ -24,48 +24,105 @@ body {
     position: relative;
     width: 100%;
     height: 100vh; /* Full screen height */
+    display: flex;
+    justify-content: start;
+    align-items: center;
     overflow: hidden;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    opacity: 0.75;
-    z-index: -1; /* Ensure it's behind the content */
 }
 
 .hero-title {
     position: absolute;
     top: 50%; /* Center vertically */
-    left: 0; /* Hidden state */
-    transform: translateY(-50%); /* Center horizontally */
+    left: 15px;
+    transform: translateY(-50%);
     text-align: left;
     color: rgb(0, 0, 0);
-    transition: left 0.5s ease; /* Smooth slide animation */
-    text-transform: uppercase;
-    font-size: calc(1rem + 5vw);
-    z-index: 1; /* Ensure title is above the background */
+    z-index: 3; /* Ensure title is above the background */
 }
 
-.hero-title.expanded {
-    left: 0; /*Fully visible*/
+.title {
+    font-size: calc(2rem + 5vw);
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1.2;
+    /* text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); */
 }
 
 .hero-image {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%; /* Make the image cover the entire width of the container */
     height: 100%; /* Make the image cover the entire height of the container */
-    object-fit: cover; /* Ensure the image covers the container without distorting the aspect ratio */
-    opacity: 0.75; /* Adjust the opacity as needed */
-    z-index: -1; /* Ensure the image is behind any content */
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    overflow: hidden;
 }
+
+.hero-image img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hero-image img.active {
+    opacity: 0.8;
+    z-index: 2;
+}
+
+/* Navigation Buttons at the Bottom */
+.navigation {
+    position: absolute;
+    bottom: 20px; /* Position near the bottom of the image */
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Center the buttons horizontally */
+    gap: 20px; /* Space between the buttons */
+    z-index: 3; /* Ensure buttons are above the images */
+}
+
+.nav-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Indicators */
+.indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.indicator.active {
+    background-color: white;
+}
+
 
 /* General Styles for the Top Bar */
 .top-bar {
