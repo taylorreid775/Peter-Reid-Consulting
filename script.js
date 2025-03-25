@@ -38,7 +38,7 @@ window.addEventListener("scroll", function () {
 window.addEventListener('load', function () {
     hero.classList.add('expanded');
 
-    const images = document.querySelectorAll('.hero-image img');
+    const heroImages = document.querySelectorAll('img.hero-image');
     const indicators = document.querySelectorAll('.indicator');
     const prevButton = document.getElementById('prev');
     const nextButton = document.getElementById('next');
@@ -47,7 +47,7 @@ window.addEventListener('load', function () {
     let slideInterval; // Store the interval ID
 
     function updateSlideshow(index) {
-        images.forEach((img, i) => {
+        heroImages.forEach((img, i) => {
             img.classList.toggle('active', i === index);
         });
 
@@ -57,13 +57,13 @@ window.addEventListener('load', function () {
     }
 
     function showPrevImage() {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        currentIndex = (currentIndex - 1 + heroImages.length) % heroImages.length;
         updateSlideshow(currentIndex);
         resetInterval(); // Reset the interval on manual change
     }
 
     function showNextImage() {
-        currentIndex = (currentIndex + 1) % images.length;
+        currentIndex = (currentIndex + 1) % heroImages.length;
         updateSlideshow(currentIndex);
         resetInterval(); // Reset the interval on manual change
     }
@@ -84,7 +84,7 @@ window.addEventListener('load', function () {
     // Function to start the slideshow
     function startInterval() {
         slideInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % images.length; // Go to the next image
+            currentIndex = (currentIndex + 1) % heroImages.length; // Go to the next image
             updateSlideshow(currentIndex);
         }, 5000); // Adjust the interval as needed
     }
@@ -99,3 +99,29 @@ window.addEventListener('load', function () {
     updateSlideshow(currentIndex);
     startInterval(); // Start the interval when the page loads
 });
+
+window.onload = function () {
+    emailjs.init("5FsB_4WIQNIEQOmz5");
+
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent page reload
+
+            const templateParams = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+
+            emailjs.send('service_4hntcjv', 'template_cp0p4lr', templateParams)
+                .then(response => {
+                    document.getElementById("response-message").textContent = "Message sent successfully!";
+                    contactForm.reset();
+                })
+                .catch(error => {
+                    console.error("EmailJS Error:", error);
+                    document.getElementById("response-message").textContent = "An error occurred: " + error.text;});
+        });
+    }
+};
