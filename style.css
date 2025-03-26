@@ -16,6 +16,7 @@ body {
     font-style: normal;
     background-color: #f9f9f9;
     color: #333;
+    min-width: 400px;
 }
 
 /* Hero Section Styles */
@@ -40,12 +41,26 @@ body {
     z-index: 3; /* Ensure title is above the background */
 }
 
-.title {
+.main-title {
     font-size: calc(2rem + 5vw);
     text-transform: uppercase;
     margin: 0;
+    padding: 10px calc(2vw);
     line-height: 1.2;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+/* Title in the Top Bar */
+.title-shrunk {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin: 5px 15px 0 0;
+    padding: 0;
+    font-weight: 400;
+}
+
+.nav-title {
+    opacity: 0;
 }
 
 .hero-image {
@@ -74,16 +89,146 @@ body {
 }
 
 /* Navigation Section */
-.navigation {
-    position: absolute; /* To overlay the buttons and indicators on the hero section */
-    bottom: 20px; /* Position near the bottom of the hero section */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex; /* Flexbox for horizontal alignment */
-    justify-content: space-between; /* Center the navigation content */
-    align-items: center; /* Align items vertically */
-    z-index: 3; /* Ensure navigation is above the images */
-    gap: 20px; /* Space between the buttons and indicators */
+nav[aria-label="Top Bar Navigation"] {
+    display: flex;
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; /* Set a fixed height */
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between; /* Distribute space between items */
+    align-items: center; /* Vertically center the items */
+    padding: 0 20px; /* Add padding to the left and right */
+    transition: background-color 0.3s, box-shadow 0.3s; 
+    z-index: 10;
+    box-sizing: border-box; /* Ensures padding is included within the width */
+}
+
+.nav-links {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 10px;
+}
+
+.nav-links li a {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.2rem;
+    color: black;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 10px 20px;
+}
+
+.nav-links li a:hover {
+    background-color: #333;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Hamburguer Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 15;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    transition: all 0.3s ease;
+}
+
+.hamburger .line {
+    width: 30px;
+    height: 4px;
+    background-color: black;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: #333;
+    padding: 20px 0;
+    z-index: 15;
+    transition: right 0.3s ease;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+}
+.sidebar .nav-links li {
+    margin: 15px 0; /* Space between items */
+}
+
+.sidebar .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 10px 25px;
+    transition: color 0.3s ease;
+}
+
+.sidebar .nav-links li a:hover {
+    color: #f1f1f1; /* Light color on hover */
+}
+
+/* Media Queries */
+@media screen and (max-width: 1010px) {
+    nav[aria-label="Top Bar Navigation"] .nav-links {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.open {
+        transform: translateX(-290px);
+    }
+
+    .sidebar.open {
+        right: 0;
+    }
+
+    .hamburger.open .line:nth-child(1) {
+        transform: rotate(45deg) translateY(10px);
+    }
+
+    .hamburger.open .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.open .line:nth-child(3) {
+        transform: rotate(-45deg) translateY(-10px);
+    }
 }
 
 /* Previous and Next Buttons */
@@ -99,24 +244,15 @@ body {
     position: relative;
 }
 
-.nav-icon {
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s;
-    object-fit: contain;
-    z-index: 3;
-}
-
-.nav-btn:hover .nav-icon {
-    transform: scale(1.1); /* Slightly enlarge the icon on hover */
-}
-
 /* Indicators Section */
 .indicators {
     display: flex; /* Arrange indicators in a row */
     gap: 8px; /* Add spacing between indicators */
     justify-content: center; /* Center indicators within the flex container */
     align-items: center; /* Align vertically */
+    position: absolute;
+    bottom: 20px;
+    z-index: 10;
 }
 
 .indicator {
@@ -134,36 +270,9 @@ body {
 
 
 /* General Styles for the Top Bar */
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px; /* Set a fixed height */
-    background-color: transparent;
-    display: flex;
-    justify-content: space-between; /* Distribute space between items */
-    align-items: center; /* Vertically center the items */
-    padding: 0 0px; /* Add padding to the left and right */
-    transition: background-color 0.3s, box-shadow 0.3s; 
-    z-index: 10;
-    box-sizing: border-box; /* Ensures padding is included within the width */
-}
-
 .top-bar.shrunk {
     background-color: white; /* Turns white once scrolled */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow */
-}
-
-/* Title in the Top Bar */
-.top-bar h1 {
-    font-size: 1.2rem;
-    margin: 0 15px;
-    padding: 0;
-    transition: font-size 0.3s, padding 0.3s, opacity 0.3s ease; /* Add opacity transition */
-    opacity: 0; /* Initially hide the title */
-    font-weight: 400; /* Matching font weight */
-    /* letter-spacing: 1px; */
 }
 
 .top-bar.shrunk h1 {
@@ -210,7 +319,7 @@ body {
 
 /* Content Section Styles */
 .content {
-    padding: 100px 20px;
+    padding: 50px 25px;
     text-align: center;
     background-color: #fff;
 }
@@ -230,7 +339,7 @@ body {
     transition: font-size 0.3s ease;
 }
 
-#contact-container {
+#section-container {
     background: #f9f9f9;
     border-radius: 6px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
@@ -239,26 +348,16 @@ body {
     justify-content: space-between;
 }
 
-#contact-container h2 {
+#secion-container h2 {
     margin: 0 0 60px 0;
 }
 
-#contact-content {
+#contact-us {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 40px;
     position: relative;
 }
-
-/* #contact-content::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 40.5%;
-    width: 2px;
-    background-color: #ccc;
-} */
 
 .contact-form {
     width: 100%;

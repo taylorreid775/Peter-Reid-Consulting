@@ -33,49 +33,74 @@
             </div>
         </div>
         <div class="hero-title">
-            <h1 class="title">Peter Reid<br>Consulting</h1>
+            <h1 class="main-title">Peter Reid<br>Consulting</h1>
         </div>
     </section>
 
     <!-- Top Navigation Bar (Initially blends with the image) -->
     <header class="top-bar">
-        <h1 class="title">Peter Reid Consulting</h1>
-        <nav>
-            <ul>
+        <h1 class="nav-title">Peter Reid Consulting</h1>
+        <nav aria-label="Top Bar Navigation">
+            <ul class="nav-links">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Our Story</a></li>
-                <li><a href="#contact-container" class="contact-btn">Contact Us</a></li>
+                <li><a href="#">What We Do</a></li>
+                <li><a href="#contact-us" class="contact-btn">Contact Us</a></li>
             </ul>
         </nav>
     </header>
 
+    <div class="hamburger" id="hamburger-menu">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </div>
+
+    <div class="sidebar">
+        <nav aria-label="Sidebar Navigation">
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">What We Do</a></li>
+                <li><a href="#contact-us" class="contact-btn">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
     <!-- Content Section (to scroll below) -->
     <section class="content">
+        <div id="section-container">
+            <h2>About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        </div>
+    </section>
+    <section class="content">
+        <div id="section-container">
+            <h2>Our Services</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        </div>
+    </section>
+    
+    <section class="content">
+        <div id="section-container">
+            <h2>What We Do</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        </div>
+    </section>
+    
+    <section class="content">
+        <div id="section-container">
+            <h2>Our Story</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        </div>
         
-        <p>Content below the header...</p>
-    </section>
-    <section class="content">
-        <p>Content below the header...</p>
     </section>
     
     <section class="content">
-        <p>Additional placeholder content...</p>
-    </section>
-    
-    <section class="content">
-        <p>More placeholder content...</p>
-    </section>
-    
-    <section class="content">
-        <div id="contact-container">
+        <div id="section-container">
             <h2>Contact Us</h2>
 
-            <div id="contact-content">
-                <div class="contact-links">
-                    <p><a href="mailto:reideau@bellaliant.net"><img src="images/Icons/email-icon.svg" alt="Email" class="social-icon"></a></p>
-                    <p><a href="tel:+1234567890"><img src="images/Icons/phone-icon.svg" alt="Phone" class="social-icon"></a></p>
-                    <p><a href="https://www.instagram.com" target="_blank"><img src="images/Icons/instagram-icon.svg" alt="Instagram" class="social-icon"></a></p>
-                </div>
+            <div id="contact-us">
     
                 <div class="contact-form">
                     <form id="contact-form">
@@ -91,6 +116,12 @@
                         <button type="submit">Send Inquiry</button>
                     </form>
                     <p id="response-message" class="invisible">Message</p>
+                </div>
+
+                <div class="contact-links">
+                    <p><a href="mailto:reideau@bellaliant.net"><img src="images/Icons/email-icon.svg" alt="Email" class="social-icon"></a></p>
+                    <p><a href="tel:+19024412424"><img src="images/Icons/phone-icon.svg" alt="Phone" class="social-icon"></a></p>
+                    <p><a href="https://www.instagram.com" target="_blank"><img src="images/Icons/instagram-icon.svg" alt="Instagram" class="social-icon"></a></p>
                 </div>
             </div>
             
