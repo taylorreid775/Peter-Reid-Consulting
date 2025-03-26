@@ -320,12 +320,24 @@ button:hover {
     background-color: #222; /* Dark background when hovered */
     transform: scale(1.05); /* Slightly scale the button */
 }
+button:active {
+    transform: scale(0.98); /* Slightly shrink the button when clicked */
+    background-color: #111; /* Darker background on click */
+}
 
 #response-message {
     margin-top: 10px;
     color: green;
     text-align: center;
     font-weight: 500;
+    transition: opacity 0.2s ease-in-out;
+}
+.visible {
+    opacity: 1;
+}
+
+.invisible {
+    opacity: 0;
 }
 
 .required {

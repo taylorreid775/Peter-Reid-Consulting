@@ -106,7 +106,7 @@ window.onload = function () {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent page reload
+            event.preventDefault();
 
             const templateParams = {
                 name: document.getElementById('name').value,
@@ -116,12 +116,31 @@ window.onload = function () {
 
             emailjs.send('service_4hntcjv', 'template_cp0p4lr', templateParams)
                 .then(response => {
-                    document.getElementById("response-message").textContent = "Message sent successfully!";
+                    const responseMessage = document.getElementById("response-message");
+                    responseMessage.textContent = "Message sent successfully!";
+                    responseMessage.classList.remove("invisible");
+                    responseMessage.classList.add("visible");
                     contactForm.reset();
+
+                    // After 3 seconds, fade out the message
+                    setTimeout(() => {
+                        responseMessage.classList.remove("visible");
+                        responseMessage.classList.add("invisible");
+                    }, 5000); // 5000ms = 3 seconds
                 })
                 .catch(error => {
+                    const responseMessage = document.getElementById("response-message");
                     console.error("EmailJS Error:", error);
-                    document.getElementById("response-message").textContent = "An error occurred: " + error.text;});
+                    responseMessage.textContent = "An error occurred: " + error.text;
+                    responseMessage.classList.remove("invisible");
+                    responseMessage.classList.add("visible");
+
+                    // After 3 seconds, fade out the message
+                    setTimeout(() => {
+                        responseMessage.classList.remove("visible");
+                        responseMessage.classList.add("invisible");
+                    }, 5000); // 5000ms = 5 seconds
+                });
         });
     }
 };
