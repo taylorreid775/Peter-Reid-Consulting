@@ -33,10 +33,11 @@ window.addEventListener("scroll", function () {
 
     // Handle the header and title shrink on scroll
     if (window.scrollY > scrollThreshold) {
+        topBar.classList.remove("transparent");
+        title.classList.remove("transparent");
+    } else {
         topBar.classList.add("transparent");
         title.classList.add("transparent");
-    } else {
-        topBar.classList.remove("transparent");
         hero.classList.add('expanded'); // Slide back in the hero content
     }
 });
@@ -47,8 +48,6 @@ window.addEventListener('load', function () {
 
     const heroImages = document.querySelectorAll('img.hero-image');
     const indicators = document.querySelectorAll('.indicator');
-    const prevButton = document.getElementById('prev');
-    const nextButton = document.getElementById('next');
 
     let currentIndex = 0;
     let slideInterval; // Store the interval ID
@@ -62,22 +61,6 @@ window.addEventListener('load', function () {
             dot.classList.toggle('active', i === index);
         });
     }
-
-    function showPrevImage() {
-        currentIndex = (currentIndex - 1 + heroImages.length) % heroImages.length;
-        updateSlideshow(currentIndex);
-        resetInterval(); // Reset the interval on manual change
-    }
-
-    function showNextImage() {
-        currentIndex = (currentIndex + 1) % heroImages.length;
-        updateSlideshow(currentIndex);
-        resetInterval(); // Reset the interval on manual change
-    }
-
-    // Add event listeners to buttons
-    prevButton.addEventListener('click', showPrevImage);
-    nextButton.addEventListener('click', showNextImage);
 
     // Add click event listeners to dots
     indicators.forEach((dot, index) => {

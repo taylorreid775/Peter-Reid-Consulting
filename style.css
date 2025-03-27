@@ -52,20 +52,6 @@ body {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 }
 
-/* Title in the Top Bar */
-.nav-title {
-    color: rgb(0, 0, 0);
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    margin: 5px 0 0 15px;
-    transition: opacity 0.3s ease-in-out;
-    opacity: 1;
-}
-
-.nav-title.transparent {
-    opacity: 0;
-}
-
 .hero-image {
     position: absolute;
     width: 100%; /* Make the image cover the entire width of the container */
@@ -91,7 +77,66 @@ body {
     z-index: 2;
 }
 
-/* Navigation Section */
+/* Navigation Bar */
+.top-bar {
+    display: flex;
+    position: fixed;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.2s; 
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+.top-bar.transparent {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.nav-title {
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin: 5px 0 0 15px;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+}
+
+.nav-title.transparent {
+    opacity: 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+}
+
+.nav-links li a {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+}
+
+.nav-links li a:hover {
+    transform: scale(1.05);
+}
+
+.nav-links li a:active {
+    transform: scale(0.98);
+}
+
 nav[aria-label="Top Bar Navigation"] {
     position: absolute;
     display: flex;
@@ -107,74 +152,19 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
     transform: translateY(-50%);
 }
 
-.top-bar {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px; /* Set a fixed height */
-    background-color: transparent;
-    justify-content: space-between; /* Distribute space between items */
-    align-items: center; /* Vertically center the items */
-    transition: background-color 0.3s, box-shadow 0.3s; 
-    z-index: 10;
-    box-sizing: border-box; /* Ensures padding is included within the width */
-}
-
-.nav-links {
-    display: flex;
-    justify-content: flex-end;
-    list-style-type: none;
-}
-
 nav[aria-label="Top Bar Navigation"] .nav-links li a {
-    font-family: 'Poppins', sans-serif; /* Ensure same font as title */
-    font-weight: 400; /* Same weight as title */
-    font-style: normal;
-    font-size: 1.2rem; /* Adjust size to match title's */
-    color: black; /* Ensure the color is black */
-    text-transform: uppercase;
-    letter-spacing: 1px; /* Match letter-spacing to title */
-    text-decoration: none; /* Remove underline */
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    color: black;
     padding: 10px;
     margin: 0 10px;
 }
 
 nav[aria-label="Top Bar Navigation"] .nav-links li a:hover {
-    background-color: #333; /* Dark background when hovered */
-    color: white; /* White text on hover */
-    transform: scale(1.05); /* Slightly scale the button */
+    background-color: #333;
+    color: white;
     cursor: pointer;
 }
 
-nav[aria-label="Sidebar Navigation"] .nav-links li a {
-    transition: scale 0.3s ease;
-}
-
-nav[aria-label="Sidebar Navigation"] .nav-links li a:hover {
-    transform: scale(1.5);
-}
-.nav-links li a {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 1.2rem;
-    color: black;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.nav-links li a:hover {
-    background-color: #333;
-    color: white;
-    transform: scale(1.05);
-}
-
-/* Hamburguer Menu */
+/* Hamburger Menu & Sidebar */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -219,8 +209,9 @@ nav[aria-label="Sidebar Navigation"] .nav-links li a:hover {
     margin: 0;
     padding: 0;
 }
+
 .sidebar .nav-links li {
-    margin: 15px 0; /* Space between items */
+    margin: 15px 0;
 }
 
 .sidebar .nav-links li a {
@@ -228,11 +219,162 @@ nav[aria-label="Sidebar Navigation"] .nav-links li a:hover {
     text-decoration: none;
     font-size: 1.2rem;
     padding: 10px 25px;
-    transition: color 0.3s ease;
 }
 
 .sidebar .nav-links li a:hover {
-    color: #f1f1f1; /* Light color on hover */
+    color: #f1f1f1;
+}
+
+/* Main Content */
+.content {
+    padding: 50px 25px;
+    text-align: center;
+    background-color: #fff;
+}
+
+#section-container {
+    background: #f9f9f9;
+    border-radius: 6px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 40px;
+    justify-content: space-between;
+}
+
+#secion-container h2 {
+    margin: 0 0 60px 0;
+}
+
+#contact-us {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+    position: relative;
+    justify-content: space-around;
+}
+
+.contact-form {
+    width: 100%;
+}
+
+#contact-form {
+    max-width: 600px;
+    text-align: left;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px 0;
+}
+
+/* Buttons & Inputs */
+.social-icon {
+    width: 55px; 
+    height: 55px;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 20px 0;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    display: block; /* Ensures consistent alignment */
+    box-sizing: border-box; /* Prevents unwanted extra width */
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #333;
+}
+
+button:not(.nav-btn){
+    width: 100%;
+    padding: 12px;
+    background-color: black; /* Dark background when hovered */
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.5s ease, transform 0.2s ease;
+}
+
+button:not(.nav-btn):hover {
+    background-color: #222; 
+    transform: scale(1.05); 
+}
+
+button:not(.nav-btn):active {
+    transform: scale(0.98);
+    background-color: #111;
+}
+
+#response-message {
+    margin-top: 10px;
+    color: green;
+    text-align: center;
+    font-weight: 500;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.required {
+    color: rgb(212, 1, 1);
+}
+
+/* Miscellaneous */
+footer {
+    margin-left: 20px;
+}
+
+/* Indicators Section */
+.indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    z-index: 3;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    scale: 1;
+    transition: background-color 0.3s, transform 0.5s ease;
+}
+
+.indicator.active {
+    background-color: white;
+    transform: scale(1.3);
 }
 
 /* Media Queries */
@@ -280,7 +422,6 @@ nav[aria-label="Sidebar Navigation"] .nav-links li a:hover {
     .hamburger {
         animation: none;
     }
-    
 }
 
 @keyframes suckIn {
@@ -299,188 +440,4 @@ nav[aria-label="Sidebar Navigation"] .nav-links li a:hover {
     100% {
         transform: rotate(0deg) scale(1);
     }
-}
-
-/* Previous and Next Buttons */
-.nav-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    z-index: 3;
-    display: inline-block;
-    position: relative;
-}
-
-/* Indicators Section */
-.indicators {
-    display: flex; /* Arrange indicators in a row */
-    gap: 8px; /* Add spacing between indicators */
-    justify-content: center; /* Center indicators within the flex container */
-    align-items: center; /* Align vertically */
-    position: absolute;
-    bottom: 20px;
-    z-index: 10;
-}
-
-.indicator {
-    width: 12px;
-    height: 12px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.indicator.active {
-    background-color: white;
-}
-
-
-/* General Styles for the Top Bar */
-.top-bar.transparent {
-    background-color: white; /* Turns white once scrolled */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow */
-}
-
-.top-bar.transparent h1 {
-    opacity: 1; /* Show title when the top bar shrinks */
-}
-
-/* Content Section Styles */
-.content {
-    padding: 50px 25px;
-    text-align: center;
-    background-color: #fff;
-}
-
-/* Scrolling Effect */
-.transparent .hero-content {
-    display: none; /* Hide the hero content once the header shrinks */
-}
-
-.transparent .top-bar h1 {
-    font-size: 1rem;
-    padding-left: 20px; /* Moves the title to the left */
-}
-
-.transparent .hero h1 {
-    font-size: 2.5rem;
-    transition: font-size 0.3s ease;
-}
-
-#section-container {
-    background: #f9f9f9;
-    border-radius: 6px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    align-items: center;
-    padding: 40px;
-    justify-content: space-between;
-}
-
-#secion-container h2 {
-    margin: 0 0 60px 0;
-}
-
-#contact-us {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 40px;
-    position: relative;
-    justify-content: space-around;
-}
-
-.contact-form {
-    width: 100%;
-}
-
-#contact-form {
-    max-width: 600px;
-    text-align: left;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.contact-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    gap: 20px;
-    padding: 30px 0;
-}
-
-.social-icon {
-    width: 55px; 
-    height: 55px;
-    padding: 10px;
-    transition: transform 0.3s ease;
-}
-
-.social-icon:hover {
-    transform: scale(1.1); /* Slightly scale the button */
-}
-
-input, textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 20px 0;
-    border: 1px solid #bbb;
-    border-radius: 6px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    display: block; /* Ensures consistent alignment */
-    box-sizing: border-box; /* Prevents unwanted extra width */
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-color: #333;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: black; /* Dark background when hovered */
-    color: white;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.5s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background-color: #222; /* Dark background when hovered */
-    transform: scale(1.05); /* Slightly scale the button */
-}
-button:active {
-    transform: scale(0.98); /* Slightly shrink the button when clicked */
-    background-color: #111; /* Darker background on click */
-}
-
-#response-message {
-    margin-top: 10px;
-    color: green;
-    text-align: center;
-    font-weight: 500;
-    transition: opacity 0.2s ease-in-out;
-}
-.visible {
-    opacity: 1;
-}
-
-.invisible {
-    opacity: 0;
-}
-
-.required {
-    color: rgb(212, 1, 1);
-}
-
-footer {
-    margin-left: 20px;
 }
