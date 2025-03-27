@@ -33,13 +33,10 @@ window.addEventListener("scroll", function () {
 
     // Handle the header and title shrink on scroll
     if (window.scrollY > scrollThreshold) {
-        topBar.classList.add("shrunk");
-        title.classList.remove("title");
-        title.classList.add("title-shrunk");
+        topBar.classList.add("transparent");
+        title.classList.add("transparent");
     } else {
-        topBar.classList.remove("shrunk");
-        title.classList.remove("title-shrunk");
-        title.classList.add("title");
+        topBar.classList.remove("transparent");
         hero.classList.add('expanded'); // Slide back in the hero content
     }
 });
