@@ -142,3 +142,29 @@ sidebarLinks.forEach(link => {
         hamburger.classList.remove('open');
     });
 });
+
+
+const radioTabs = document.querySelectorAll('input[name="tab"]');
+const allImages = document.querySelectorAll('.image-grid .image');
+
+function showImagesForTab(tabIndex) {
+    allImages.forEach((img, i) => {
+        const groupIndex = Math.floor(i / 5);
+        if (groupIndex === tabIndex) {
+            img.classList.add('visible');
+        } else {
+            img.classList.remove('visible');
+        }
+    });
+}
+
+radioTabs.forEach((radio, index) => {
+    radio.addEventListener('change', () => {
+        if (radio.checked) {
+            showImagesForTab(index);
+        }
+    });
+});
+
+// Show initial images
+showImagesForTab(0);
