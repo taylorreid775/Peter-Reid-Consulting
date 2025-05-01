@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </head>
 <body>
     <!-- Hero Section (Full screen image) -->
@@ -32,7 +33,7 @@
 
     <!-- Top Navigation Bar (Initially blends with the image) -->
     <header class="top-bar transparent">
-        <h1 class="nav-title transparent">Peter Reid Consulting</h1>
+        <h1 class="nav-title transparent"><a href="#">Peter Reid Consulting</a></h1>
         <nav aria-label="Top Bar Navigation">
             <ul class="nav-links">
                 <li><a href="#">Home</a></li>
@@ -68,7 +69,7 @@
                     <div class="menu-area">
                         <h2>Build Your Dream</h2>
                         <div id="tabs">
-                            <input type="radio" name="tab" id="tab1" checked="true">
+                            <input type="radio" name="tab" id="tab1" checked>
                             <label for="tab1">Walkways</label>
                             <input type="radio" name="tab" id="tab2">
                             <label for="tab2">Patios</label>
@@ -84,31 +85,49 @@
                     </div>
                 </div>
                 <div class="image-grid">
-                    <img src="https://placehold.co/600x400/000000/fff" id="img1" class="image visible">
-                    <img src="https://placehold.co/600x400/000000/fff" id="img2" class="image visible">
-                    <img src="https://placehold.co/600x400/000000/fff" id="img3" class="image visible">
-                    <img src="https://placehold.co/600x400/000000/fff" id="img4" class="image visible">
-                    <img src="https://placehold.co/600x400/000000/fff" id="img5" class="image visible">
-                    <img src="https://placehold.co/600x400/800080/ffffff" id="img1" class="image">
-                    <img src="https://placehold.co/600x400/800080/ffffff" id="img2" class="image">
-                    <img src="https://placehold.co/600x400/800080/ffffff" id="img3" class="image">
-                    <img src="https://placehold.co/600x400/800080/ffffff" id="img4" class="image">
-                    <img src="https://placehold.co/600x400/800080/ffffff" id="img5" class="image">
-                    <img src="https://placehold.co/600x400/0000ff/ffffff" id="img1" class="image">
-                    <img src="https://placehold.co/600x400/0000ff/ffffff" id="img2" class="image">
-                    <img src="https://placehold.co/600x400/0000ff/ffffff" id="img3" class="image">
-                    <img src="https://placehold.co/600x400/0000ff/ffffff" id="img4" class="image">
-                    <img src="https://placehold.co/600x400/0000ff/ffffff" id="img5" class="image">
-                    <img src="https://placehold.co/600x400/00ff00/000000" id="img1" class="image">
-                    <img src="https://placehold.co/600x400/00ff00/000000" id="img2" class="image">
-                    <img src="https://placehold.co/600x400/00ff00/000000" id="img3" class="image">
-                    <img src="https://placehold.co/600x400/00ff00/000000" id="img4" class="image">
-                    <img src="https://placehold.co/600x400/00ff00/000000" id="img5" class="image">
-                    <img src="https://placehold.co/600x400/d3d3d3/000000" id="img1" class="image">
-                    <img src="https://placehold.co/600x400/d3d3d3/000000" id="img2" class="image">
-                    <img src="https://placehold.co/600x400/d3d3d3/000000" id="img3" class="image">
-                    <img src="https://placehold.co/600x400/d3d3d3/000000" id="img4" class="image">
-                    <img src="https://placehold.co/600x400/d3d3d3/000000" id="img5" class="image">
+                    <ul class="grid" data-tab="0" style="display: block;">
+                        <li class="grid-sizer"></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x180/000000/fff" alt="Walkway 1"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x280/000000/fff" alt="Walkway 2"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x220/000000/fff" alt="Walkway 3"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x260/000000/fff" alt="Walkway 4"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x200/000000/fff" alt="Walkway 5"></a></li>
+                    </ul>
+                    <ul class="grid" data-tab="1" style="display: none;">
+                        <li class="grid-sizer"></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x240/800080/ffffff" alt="Patio 1"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x180/800080/ffffff" alt="Patio 2"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x260/800080/ffffff" alt="Patio 3"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x220/800080/ffffff" alt="Patio 4"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x280/800080/ffffff" alt="Patio 5"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x200/800080/ffffff" alt="Patio 6"></a></li>
+                    </ul>
+                    <ul class="grid" data-tab="2" style="display: none;">
+                        <li class="grid-sizer"></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x260/0000ff/ffffff" alt="Driveway 1"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x200/0000ff/ffffff" alt="Driveway 2"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x280/0000ff/ffffff" alt="Driveway 3"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x220/0000ff/ffffff" alt="Driveway 4"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x240/0000ff/ffffff" alt="Driveway 5"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x180/0000ff/ffffff" alt="Driveway 6"></a></li>
+                    </ul>
+                    <ul class="grid" data-tab="3" style="display: none;">
+                        <li class="grid-sizer"></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x220/00ff00/000000" alt="Wall 1"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x280/00ff00/000000" alt="Wall 2"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x200/00ff00/000000" alt="Wall 3"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x260/00ff00/000000" alt="Wall 4"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x180/00ff00/000000" alt="Wall 5"></a></li>
+
+                    </ul>
+                    <ul class="grid" data-tab="4" style="display: none;">
+                        <li class="grid-sizer"></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x180/d3d3d3/000000" alt="Pool 1"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x260/d3d3d3/000000" alt="Pool 2"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x220/d3d3d3/000000" alt="Pool 3"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x280/d3d3d3/000000" alt="Pool 4"></a></li>
+                        <li class="grid-item"><a href="#"><img src="https://placehold.co/250x200/d3d3d3/000000" alt="Pool 5"></a></li>
+                    </ul>
                 </div>
             </div>
             <!-- <div class="text">
@@ -141,10 +160,12 @@
     
     <section class="content">
         <div id="section-container">
-            <h2>Contact Us</h2>
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
 
             <div id="contact-us">
-    
                 <div class="contact-form">
                     <form id="contact-form">
                         <label for="name">Your Name:<span class="required"> *</span></label>
@@ -162,12 +183,12 @@
                 </div>
 
                 <div class="contact-links">
-                    <p><a href="mailto:reideau@bellaliant.net"><img src="images/Icons/email-icon.svg" alt="Email" class="social-icon"></a></p>
-                    <p><a href="tel:+19024412424"><img src="images/Icons/phone-icon.svg" alt="Phone" class="social-icon"></a></p>
-                    <p><a href="https://www.instagram.com" target="_blank"><img src="images/Icons/instagram-icon.svg" alt="Instagram" class="social-icon"></a></p>
+                    <h3>Get in Touch</h3>
+                    <p><a href="mailto:reideau@bellaliant.net" title="Email Us"><img src="images/Icons/email-icon.svg" alt="Email" class="social-icon"> reideau@bellaliant.net</a></p>
+                    <p><a href="tel:+19024412424" title="Call Us"><img src="images/Icons/phone-icon.svg" alt="Phone" class="social-icon"> (902) 441-2424</a></p>
+                    <p><a href="https://www.instagram.com" target="_blank" title="Follow Us on Instagram"><img src="images/Icons/instagram-icon.svg" alt="Instagram" class="social-icon"> Follow us on Instagram</a></p>
                 </div>
             </div>
-            
         </div>
     </section>
 

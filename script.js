@@ -143,17 +143,64 @@ sidebarLinks.forEach(link => {
     });
 });
 
-
 const radioTabs = document.querySelectorAll('input[name="tab"]');
-const allImages = document.querySelectorAll('.image-grid .image');
+const allGrids = document.querySelectorAll('.grid');
+let masonryInstances = {};
 
-function showImagesForTab(tabIndex) {
-    allImages.forEach((img, i) => {
-        const groupIndex = Math.floor(i / 5);
-        if (groupIndex === tabIndex) {
-            img.classList.add('visible');
+// Initialize Masonry for each grid
+function initializeMasonry(grid, index) {
+    const gutter = 10;
+
+    masonryInstances[index] = new Masonry(grid, {
+        itemSelector: '.grid-item',
+        gutter: gutter,
+        transitionDuration: 0, // Remove transition to prevent bouncing
+        fitWidth: true
+    });
+}
+
+allGrids.forEach((grid, index) => {
+    // Make grid temporarily visible for initial layout
+    const wasHidden = grid.style.display === 'none';
+    if (wasHidden) {
+        grid.style.visibility = 'hidden';
+        grid.style.display = 'block';
+    }
+
+    initializeMasonry(grid, index);
+
+    // Return to original state if it was hidden
+    if (wasHidden) {
+        grid.style.display = 'none';
+        grid.style.visibility = 'visible';
+    }
+});
+
+// Ensure tab1 is checked on page load
+document.getElementById('tab1').checked = true;
+showGridForTab(0);
+
+function showGridForTab(tabIndex) {
+    // Hide all grids first without removing their layout
+    allGrids.forEach(grid => {
+        grid.classList.remove('active');
+        grid.style.visibility = 'hidden';
+        grid.style.display = 'block';
+    });
+    
+    // Layout all grids while they're visible
+    allGrids.forEach((grid, i) => {
+        masonryInstances[i].layout();
+    });
+
+    // Show the selected grid and hide others
+    allGrids.forEach((grid, i) => {
+        if (i === tabIndex) {
+            grid.style.visibility = 'visible';
+            grid.style.display = 'block';
+            grid.classList.add('active');
         } else {
-            img.classList.remove('visible');
+            grid.style.display = 'none';
         }
     });
 }
@@ -161,10 +208,49 @@ function showImagesForTab(tabIndex) {
 radioTabs.forEach((radio, index) => {
     radio.addEventListener('change', () => {
         if (radio.checked) {
-            showImagesForTab(index);
+            showGridForTab(index);
         }
     });
 });
 
-// Show initial images
-showImagesForTab(0);
+// Re-layout Masonry when images are loaded
+allGrids.forEach((grid, index) => {
+    imagesLoaded(grid, () => {
+        // Make grid temporarily visible for layout
+        const wasHidden = grid.style.display === 'none';
+        if (wasHidden) {
+            grid.style.visibility = 'hidden';
+            grid.style.display = 'block';
+        }
+
+        masonryInstances[index].layout();
+
+        // Return to original state if it was hidden
+        if (wasHidden) {
+            grid.style.display = 'none';
+            grid.style.visibility = 'visible';
+        }
+    });
+});
+
+// Improved resize handler with layout for all grids
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    
+    // Disable transitions during resize
+    allGrids.forEach(grid => {
+        grid.style.transition = 'none';
+    });
+    
+    resizeTimer = setTimeout(() => {
+        allGrids.forEach((grid, index) => {
+            // Re-enable transitions
+            grid.style.transition = '';
+            
+            // Reinitialize masonry with new column width
+            initializeMasonry(grid, index);
+            masonryInstances[index].layout();
+        });
+    }, 250); // Longer delay for smoother resizing
+});
