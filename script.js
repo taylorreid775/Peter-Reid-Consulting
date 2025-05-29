@@ -4,91 +4,95 @@ const sidebar = document.querySelector('.sidebar');
 hamburger.addEventListener('click', function () {
     sidebar.classList.toggle('open');  // Toggle visibility of the sidebar
     hamburger.classList.toggle('open'); // Animate the hamburger icon
+    topBar.classList.toggle('transparent');
+    title.classList.toggle('transparent');
+    navLinks.classList.toggle('transparent');
 });
 
 let lastScrollTop = 0; // Keeps track of the last scroll position
 const hero = document.querySelector('.hero');
+const topBar = document.querySelector(".top-bar");
+const title = document.querySelector(".nav-title");
+const navLinks = document.querySelector(".top-bar nav");
 
 window.addEventListener("scroll", function () {
-    const topBar = document.querySelector(".top-bar");
-    const title = document.querySelector(".nav-title");
+    const heroHeight = hero.offsetHeight;
+    const heroTop = hero.offsetTop;
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const bottomOfImage = hero.offsetTop + heroHeight;
+    const scrollThreshold = 50;
+    const lockThreshold = heroTop + heroHeight + 250;
 
-    const heroHeight = hero.offsetHeight; // Height of the hero image
-    const heroTop = hero.offsetTop; // Top position of the hero image
+    // if (window.scrollY < lastScrollTop && scrollPosition <= lockThreshold) {
+    //     window.scrollTo(0, heroTop);
+    // }
 
-    const scrollPosition = window.scrollY + window.innerHeight; // Current scroll position
-    const bottomOfImage = hero.offsetTop + heroHeight; // Bottom position of the hero section
+    // lastScrollTop = window.scrollY <= 0 ? 0 : window.scrollY;
 
-    const scrollThreshold = 50; // Trigger sliding earlier when scrolled 50px down
-    const lockThreshold = heroTop + heroHeight + 250; // Near the bottom of the hero image (adjustable threshold)
-
-    // Only trigger lock when scrolling up and near the bottom of the hero section
-    if (window.scrollY < lastScrollTop && scrollPosition <= lockThreshold) {
-        // Lock to the top of the hero section if conditions are met
-        window.scrollTo(0, heroTop);
-    }
-
-    // Update last scroll position
-    lastScrollTop = window.scrollY <= 0 ? 0 : window.scrollY;
-
-    // Handle the header and title shrink on scroll
-    if (window.scrollY > scrollThreshold) {
-        topBar.classList.remove("transparent");
-        title.classList.remove("transparent");
-    } else {
-        topBar.classList.add("transparent");
-        title.classList.add("transparent");
-        hero.classList.add('expanded'); // Slide back in the hero content
-    }
+    // Batch DOM updates by using requestAnimationFrame
+    requestAnimationFrame(() => {
+        if (window.scrollY > scrollThreshold) {
+            topBar.classList.remove("transparent");
+            title.classList.remove("transparent");
+            navLinks.classList.remove("transparent");
+            hamburger.classList.remove("transparent");
+        } else {
+            topBar.classList.add("transparent");
+            title.classList.add("transparent");
+            navLinks.classList.add("transparent");
+            hamburger.classList.add("transparent");
+            hero.classList.add('expanded');
+        }
+    });
 });
 
 // Slideshow functionality
-window.addEventListener('load', function () {
-    hero.classList.add('expanded');
+// window.addEventListener('load', function () {
+//     hero.classList.add('expanded');
 
-    const heroImages = document.querySelectorAll('img.hero-image');
-    const indicators = document.querySelectorAll('.indicator');
+//     const heroImages = document.querySelectorAll('img.hero-image');
+//     const indicators = document.querySelectorAll('.indicator');
 
-    let currentIndex = 0;
-    let slideInterval; // Store the interval ID
+//     let currentIndex = 0;
+//     let slideInterval; // Store the interval ID
 
-    function updateSlideshow(index) {
-        heroImages.forEach((img, i) => {
-            img.classList.toggle('active', i === index);
-        });
+//     function updateSlideshow(index) {
+//         heroImages.forEach((img, i) => {
+//             img.classList.toggle('active', i === index);
+//         });
 
-        indicators.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
-    }
+//         indicators.forEach((dot, i) => {
+//             dot.classList.toggle('active', i === index);
+//         });
+//     }
 
-    // Add click event listeners to dots
-    indicators.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentIndex = index;
-            updateSlideshow(currentIndex);
-            resetInterval(); // Reset the interval on dot click
-        });
-    });
+//     // Add click event listeners to dots
+//     indicators.forEach((dot, index) => {
+//         dot.addEventListener('click', () => {
+//             currentIndex = index;
+//             updateSlideshow(currentIndex);
+//             resetInterval(); // Reset the interval on dot click
+//         });
+//     });
 
-    // Function to start the slideshow
-    function startInterval() {
-        slideInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % heroImages.length; // Go to the next image
-            updateSlideshow(currentIndex);
-        }, 5000); // Adjust the interval as needed
-    }
+//     // Function to start the slideshow
+//     function startInterval() {
+//         slideInterval = setInterval(() => {
+//             currentIndex = (currentIndex + 1) % heroImages.length; // Go to the next image
+//             updateSlideshow(currentIndex);
+//         }, 5000); // Adjust the interval as needed
+//     }
 
-    // Function to reset the interval
-    function resetInterval() {
-        clearInterval(slideInterval); // Clear the existing interval
-        startInterval(); // Start a new interval
-    }
+//     // Function to reset the interval
+//     function resetInterval() {
+//         clearInterval(slideInterval); // Clear the existing interval
+//         startInterval(); // Start a new interval
+//     }
 
-    // Initialize the slideshow
-    updateSlideshow(currentIndex);
-    startInterval(); // Start the interval when the page loads
-});
+//     // Initialize the slideshow
+//     updateSlideshow(currentIndex);
+//     startInterval(); // Start the interval when the page loads
+// });
 
 window.onload = function () {
     emailjs.init("5FsB_4WIQNIEQOmz5");
@@ -145,64 +149,30 @@ sidebarLinks.forEach(link => {
 
 const radioTabs = document.querySelectorAll('input[name="tab"]');
 const allGrids = document.querySelectorAll('.grid');
-let masonryInstances = {};
-
-// Initialize Masonry for each grid
-function initializeMasonry(grid, index) {
-    const gutter = 10;
-
-    masonryInstances[index] = new Masonry(grid, {
-        itemSelector: '.grid-item',
-        gutter: gutter,
-        transitionDuration: 0, // Remove transition to prevent bouncing
-        fitWidth: true
-    });
-}
-
-allGrids.forEach((grid, index) => {
-    // Make grid temporarily visible for initial layout
-    const wasHidden = grid.style.display === 'none';
-    if (wasHidden) {
-        grid.style.visibility = 'hidden';
-        grid.style.display = 'block';
-    }
-
-    initializeMasonry(grid, index);
-
-    // Return to original state if it was hidden
-    if (wasHidden) {
-        grid.style.display = 'none';
-        grid.style.visibility = 'visible';
-    }
-});
 
 // Ensure tab1 is checked on page load
 document.getElementById('tab1').checked = true;
 showGridForTab(0);
 
 function showGridForTab(tabIndex) {
-    // Hide all grids first without removing their layout
-    allGrids.forEach(grid => {
-        grid.classList.remove('active');
-        grid.style.visibility = 'hidden';
-        grid.style.display = 'block';
-    });
-    
-    // Layout all grids while they're visible
     allGrids.forEach((grid, i) => {
-        masonryInstances[i].layout();
+        grid.classList.remove('active', 'visible');
+        grid.style.display = 'none';
     });
 
-    // Show the selected grid and hide others
-    allGrids.forEach((grid, i) => {
-        if (i === tabIndex) {
-            grid.style.visibility = 'visible';
-            grid.style.display = 'block';
-            grid.classList.add('active');
-        } else {
-            grid.style.display = 'none';
-        }
-    });
+    const targetGrid = allGrids[tabIndex];
+    targetGrid.style.display = 'grid';
+
+    // Force reflow to prep for transition
+    void targetGrid.offsetWidth;
+
+    // Then activate
+    targetGrid.classList.add('active');
+
+    // Add 'visible' on next tick to trigger the transition
+    setTimeout(() => {
+        targetGrid.classList.add('visible');
+    }, 10); // 10ms is enough
 }
 
 radioTabs.forEach((radio, index) => {
@@ -213,44 +183,90 @@ radioTabs.forEach((radio, index) => {
     });
 });
 
-// Re-layout Masonry when images are loaded
-allGrids.forEach((grid, index) => {
-    imagesLoaded(grid, () => {
-        // Make grid temporarily visible for layout
-        const wasHidden = grid.style.display === 'none';
-        if (wasHidden) {
-            grid.style.visibility = 'hidden';
-            grid.style.display = 'block';
-        }
+// Modal functionality
+const modalOverlay = document.querySelector('.modal-overlay');
+const modalImg = modalOverlay.querySelector('img');
+const closeModal = document.querySelector('.close-modal');
 
-        masonryInstances[index].layout();
+console.log('Modal elements:', { modalOverlay, modalImg, closeModal }); // Debug log
 
-        // Return to original state if it was hidden
-        if (wasHidden) {
-            grid.style.display = 'none';
-            grid.style.visibility = 'visible';
-        }
+// Add click event to all grid images
+const gridImages = document.querySelectorAll('.grid-item img');
+console.log('Found grid images:', gridImages.length); // Debug log
+
+gridImages.forEach(img => {
+    img.addEventListener('click', function(e) {
+        console.log('Image clicked:', this.src); // Debug log
+        e.preventDefault();
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+        modalImg.classList.add('modal-img-scaled'); // Add scale-up class
+        console.log('Before adding active class'); // Debug log
+        modalOverlay.classList.add('active');
+        console.log('After adding active class, current classes:', modalOverlay.classList); // Debug log
+        document.body.style.overflow = 'hidden';
     });
 });
 
-// Improved resize handler with layout for all grids
-let resizeTimer;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    
-    // Disable transitions during resize
-    allGrids.forEach(grid => {
-        grid.style.transition = 'none';
-    });
-    
-    resizeTimer = setTimeout(() => {
-        allGrids.forEach((grid, index) => {
-            // Re-enable transitions
-            grid.style.transition = '';
-            
-            // Reinitialize masonry with new column width
-            initializeMasonry(grid, index);
-            masonryInstances[index].layout();
-        });
-    }, 250); // Longer delay for smoother resizing
+// Close modal when clicking the X or overlay
+closeModal.addEventListener('click', function(e) {
+    console.log('Close button clicked'); // Debug log
+    e.preventDefault();
+    modalOverlay.classList.remove('active');
+    modalImg.classList.remove('modal-img-scaled'); // Remove scale-up class
+    document.body.style.overflow = '';
 });
+
+modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+        console.log('Overlay clicked'); // Debug log
+        modalOverlay.classList.remove('active');
+        modalImg.classList.remove('modal-img-scaled'); // Remove scale-up class
+        document.body.style.overflow = '';
+    }
+});
+
+// Close modal when pressing Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+        console.log('Escape key pressed'); // Debug log
+        modalOverlay.classList.remove('active');
+        modalImg.classList.remove('modal-img-scaled'); // Remove scale-up class
+        document.body.style.overflow = '';
+    }
+});
+
+// Add scroll down chevron functionality
+const chevron = document.querySelector('.chevron');
+if (chevron) {
+    chevron.addEventListener('click', () => {
+        const introLead = document.querySelector('.intro-lead-block');
+        if (introLead) {
+            const offset = 90; // Height of fixed header or desired space
+            const elementTop = introLead.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: elementTop - offset,
+                behavior: 'smooth'
+            });
+        }
+    });
+}
+
+// Make Learn More button scroll to the same section
+const learnMoreBtn = document.querySelector('.hero-btn[href="#first-section"]');
+if (learnMoreBtn) {
+    learnMoreBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const introLead = document.querySelector('.intro-lead-block');
+        if (introLead) {
+            const offset = 90; // Height of fixed header or desired space
+            const elementTop = introLead.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: elementTop - offset,
+                behavior: 'smooth'
+            });
+        }
+    });
+}
+
+
