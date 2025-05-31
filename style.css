@@ -469,7 +469,6 @@ footer {
 }
 
 .menu {
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -478,6 +477,14 @@ footer {
     width: 30%;
     min-width: 205px;
     height: 100%;
+}
+
+.menu h2 {
+    margin: 0;
+}
+
+.menu .accent-line {
+    margin-bottom: 34px;
 }
 
 .image-grid {
@@ -993,16 +1000,11 @@ footer {
     margin: 0;
 }
 
-.bio-summary h2 {
-    font-size: 2rem;
-    margin-bottom: 4px;
-    margin-top: 0;
-}
-
 .bio-quote {
     font-style: italic;
     color: #207a3c;
     font-size: 1.05rem;
+    margin-top: -10px;
 }
 
 .bio-summary p {
@@ -1042,8 +1044,6 @@ footer {
 .menu-area h2 {
     font-size: 2rem;
     font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 12px;
     color: #222;
 }
 
@@ -1068,6 +1068,14 @@ footer {
 
   .section-card h2 {
     font-size: 1.3rem;
+  }
+
+  .section-card-text-content {
+    gap: 10px !important;
+  }
+
+  .bio-quote {
+    margin-top: 0 !important;
   }
 
   .grid {
@@ -1464,4 +1472,14 @@ body.no-scroll, html.no-scroll {
 .port-right {
     width: 70%;
     height: 100%;
+}
+
+.section-card-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section-card-text-content *:not(.accent-line, .bio-quote) {
+    margin: 0;
 }
