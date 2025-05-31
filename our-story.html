@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" class="no-scroll">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Story - Peter Reid Consulting</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="no-scroll">
+<body>
     <header class="top-bar">
         <h1 class="nav-title"><a href="index.html">Peter Reid Consulting</a></h1>
         <nav aria-label="Top Bar Navigation">
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Our Story</a></li>
-                <li><a href="#">What We Do</a></li>
-                <li><a href="#contact-us" class="contact-btn">Contact Us</a></li>
+                <li><a href="/our-story.html">Our Story</a></li>
+                <li><a href="/services.html">Services</a></li>
+                <li><a href="index.html#contact-section" class="contact-btn">Contact Us</a></li>
             </ul>
         </nav>
     </header>
-    <main>
-        <section class="content" id="our-story">
-            <div id="section-container">
+    <main class="our-story-page">
+        <section>
+            <div class=" our-story-full section-card">
                 <h2>Our Story</h2>
+                <div class="accent-line"></div>
                 <div class="our-story-bio">
                     <p>Peter Reid, a native Haligonian, discovered a passion for landscape design through his high school summer employment.  He worked both as a construction laborer and as a grounds keeper at the Atlantic School of Theology.  In 1984, Peter established the Ottawa based company MacKinnon Reid & Associates in partnership with a long time family friend.  The company's original focus was the construction of interlocking paver patios, walks and driveways, however as customer requests for more sophisticated designs increased, Peter attained his Nova Scotia Agricultural College diploma in Landscape Horticulture and Design, graduating with honors.</p>
                     <p>MacKinnon Reid & Associates quickly established a benchmark for excellence in residential design/build, designing and implementing over 1000 creative projects.  As President and General Manager of this successfully growing business, Peter developed an effective organizational structure, implementing systems and processes which enabled him to sell the company in 2011.</p>
@@ -32,6 +32,29 @@
                 <a href="index.html" class="read-more">&larr; Back to Home</a>
             </div>
         </section>
+
+        <div class="hamburger" id="hamburger-menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </div>
+    
+        <div class="sidebar">
+            <nav aria-label="Sidebar Navigation">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="services.html">What We Do</a></li>
+                    <li><a href="#contact-us" class="contact-btn">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Peter Reid Consulting. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html> 

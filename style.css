@@ -59,13 +59,16 @@ body {
     padding: 10px calc(2vw);
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     line-height: 1.2;
-    font-size: 10vw;
     text-transform: uppercase !important; /* Added !important to ensure it overrides any other styles */
     margin: 0;
 }
 
+.nowrap {
+    font-size: clamp(56px, 10vw, 120px);
+}
+
 .consulting-title {
-    font-size: 8.5vw;
+    font-size: clamp(48px, 8.5vw, 100px);
     display: block;
     text-align: center;
     margin: 0 auto;
@@ -97,7 +100,7 @@ body {
     width: auto;
     background: none;
     color: #111;
-    font-size: 3.5vw;
+    font-size: clamp(16px, 3vw, 30px);
     font-style: italic;
     font-weight: 500;
     text-align: center;
@@ -345,6 +348,10 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
 
 }
 
+.contact-links.mobile-only {
+    padding: 0;
+}
+
 .contact-links h3 {
     margin: 0;
     font-size: 1.4rem;
@@ -362,7 +369,7 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
     align-items: center;
     text-decoration: none;
     color: #333;
-    transition: color 0.3s ease;
+    transition: color 0.1s ease;
     gap: 15px;
     justify-content: flex-start;
     width: 100%;
@@ -379,6 +386,10 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.contact-links a:hover {
+    color: black;
 }
 
 .social-icon:hover {
@@ -458,6 +469,7 @@ footer {
 }
 
 .menu {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -469,8 +481,8 @@ footer {
 }
 
 .image-grid {
-    width: 70%;
-    height: 100%;
+    width: 100%;
+    height: calc(100% - 60.6px);
 }
 .grid {
     grid-template-columns: 1fr 1fr;
@@ -554,21 +566,44 @@ footer {
 @media screen and (max-width: 768px) {
     .menu {
         width: 100%;
-        padding: 10px;
+        gap: 10px;
     }
-    
+
+    .card-photo {
+        width: 100% !important;
+    }
+
+    .services-section .card-photo img {
+        margin-bottom: 8px;
+    }
+
     .image-grid {
-        width: 100%;
-        padding: 10px;
+        height: calc(100% - 50.6px) !important;
+    }
+
+    .port-btn {
+        margin-top: 10px !important;
+    }
+
+    .port-right {
+        width: 100% !important;
+
     }
 
     .portfolio-section {
         flex-direction: column !important;
-        max-width: 92vw !important;
         align-items: center !important;
-        gap: 18px !important;
+        gap: 20px !important;
         height: auto !important;
     }
+
+    .portfolio-section h2 {
+        margin-bottom: 10px !important;
+    }
+
+    /* .section-card {
+        max-width: 92vw !important;
+    } */
 
     .card-photo img {
         width: 100%;
@@ -588,6 +623,17 @@ footer {
     #contact-us {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+
+    .mobile-only {
+        display: flex !important;
+      }
+    .desktop-only {
+        display: none !important;
+    }
+
+    .contact-form {
+        width: 100%;
     }
 
     .contact-box {
@@ -611,26 +657,8 @@ footer {
     }
 }
 
-/* @media screen and (min-width: 1400px) and (max-width: 1699px) {
-    .grid-sizer,
-    .grid-item {
-        width: 400px;
-    }
-}
-
-@media screen and (min-width: 1700px) {
-    .image-grid {
-        max-width: 80%; /* Increased from 70% to accommodate larger items
-    }
-    
-    .grid-sizer,
-    .grid-item {
-        width: 700px;
-    }
-} */
-
 .card-photo.mobile-only {
-    margin: 18px 0;
+    /* margin: 18px 0; */
 }
 
 /* Remove old image-set styles */
@@ -729,16 +757,18 @@ footer {
         animation: suckIn 0.5s ease-out;
     }
 
-    /* .hamburger.open {
-        transform: translateX(-290px);
-    } */
-
     .sidebar.open {
         right: 0;
     }
 
+    .hamburger.open {
+        transform: translateX(5px);
+    }
+
     .hamburger.open .line:nth-child(1) {
         transform: rotate(45deg) translateY(10px);
+        background-color: white;
+        transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
     .hamburger.open .line:nth-child(2) {
@@ -747,6 +777,8 @@ footer {
 
     .hamburger.open .line:nth-child(3) {
         transform: rotate(-45deg) translateY(-10px);
+        background-color: white;
+        transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
     .indicator {
@@ -877,13 +909,15 @@ footer {
 .section-card {
     background: #fff;
     border-radius: 14px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    width: 92vw;
     max-width: 1100px;
     margin: 40px auto;
     padding: 32px 24px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    /* align-items: flex-start; */
+    align-items: center;
     gap: 12px;
     height: auto;
 }
@@ -899,10 +933,22 @@ footer {
     gap: 48px;
     background: rgba(255,255,255,0.95);
     border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
     padding: 32px 28px;
     margin: 32px auto 0 auto;
-    max-width: 1100px;
+}
+
+.bio-section {
+    margin-top: 0;
+}
+
+.bio-section .card-photo.desktop-only {
+    max-width: 350px;
+    width: 30%;
+}
+
+.services-section .card-photo.desktop-only {
+    max-width: 440px;
+    width: 45%;
 }
 
 .contact-section {
@@ -923,11 +969,13 @@ footer {
 .card-photo {
     flex: 0 0 auto;
     width: 30%;
-    /* height: 200%; */
+}
+
+.card-photo.desktop-only {
+    max-width: 250px;
 }
 
 .card-photo img {
-    /* width: 250px; */
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -954,18 +1002,17 @@ footer {
 .bio-quote {
     font-style: italic;
     color: #207a3c;
-    margin-bottom: 8px;
     font-size: 1.05rem;
 }
 
 .bio-summary p {
-    margin: 0 0 8px 0;
+    margin: 0;
     font-size: 1.05rem;
 }
 
 .read-more {
     display: inline-block;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     color: #fff;
     background: #207a3c;
     padding: 8px 24px;
@@ -1005,7 +1052,7 @@ footer {
 .intro-services {
     font-size: 1.1rem;
     color: #333;
-    margin-bottom: 18px;
+    /* margin-bottom: 18px; */
     line-height: 1.7;
 }
 
@@ -1036,13 +1083,6 @@ footer {
     order: 2;
   }
 
-  .mobile-only {
-    display: flex;
-  }
-  .desktop-only {
-    display: none;
-  }
-
   .bio-section .card-photo {
     order: 3;
   }
@@ -1053,10 +1093,6 @@ footer {
 
   .bio-section .read-more {
     order: 5;
-  }
-
-  .contact-form {
-    width: 100%;
   }
 }
 
@@ -1277,17 +1313,6 @@ footer {
     background: transparent;
 }
 
-.our-story-bio {
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 1.08rem;
-    color: #333;
-    line-height: 1.7;
-}
-.our-story-bio p {
-    margin-bottom: 18px;
-}
-
 .section-gradient-transition {
     width: 100vw;
     height: 80px;
@@ -1349,7 +1374,8 @@ footer {
 .intro-lead-block.section-card {
     padding: 56px 32px 40px 32px;
     margin-top: 0;
-    margin-bottom: 36px;
+    margin-bottom: 0;
+    bottom: 0;
     box-shadow: 0 6px 32px rgba(0,0,0,0.08);
 }
 
@@ -1394,4 +1420,48 @@ body.no-scroll, html.no-scroll {
     justify-content: space-between;
     height: 70vh;
     align-items: center;
+}
+
+.services-page section {
+    flex-direction: column;
+}
+
+.services-page .intro {
+    margin-top: 120px;
+}
+
+.services-page h2, .services-page h3, .services-page ul, .our-story-page h2 {
+    align-self: flex-start;
+}
+
+.services-page .cta {
+    align-items: flex-start;
+}
+
+.our-story-page .our-story-full {
+    flex-direction: column;
+    margin-top: 120px;
+}
+
+.our-story-page .our-story-bio {
+    font-size: 1.08rem;
+    color: #333;
+    line-height: 1.7;
+}
+.our-story-page .our-story-bio p {
+    margin-bottom: 36px;
+}
+
+.our-story-full h2 {
+    text-align: left;
+}
+
+.port-btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.port-right {
+    width: 70%;
+    height: 100%;
 }
