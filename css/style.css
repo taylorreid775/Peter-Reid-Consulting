@@ -448,7 +448,7 @@ input:focus, textarea:focus {
 } */
 
 .visible {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .invisible {
@@ -493,7 +493,7 @@ footer {
 }
 .grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-auto-rows: 1fr;
     gap: 20px;
     list-style: none;
     padding: 0;
@@ -502,6 +502,9 @@ footer {
     height: 100%;
     opacity: 0;
     visibility: hidden;
+}
+.portfolio-page .grid {
+    grid-template-columns: 1fr 1fr 1fr;
 }
 .grid.active {
     opacity: 1;
@@ -541,9 +544,21 @@ footer {
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-.grid.visible .grid-item {
+.portfolio-page .grid-item {
+    transition-delay: var(--delay, 0s);
+}
+
+.grid.visible .grid-item:not(.portfolio-page .grid-item) {
     opacity: 1;
     transform: translateY(0);
+    visibility: visible;
+}
+
+.grid .grid-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    cursor: pointer;
 }
 
 .grid.visible .grid-item:nth-child(1) {
@@ -1482,4 +1497,146 @@ body.no-scroll, html.no-scroll {
 
 .section-card-text-content *:not(.accent-line, .bio-quote) {
     margin: 0;
+}
+
+.portfolio-page .portfolio {
+    margin-top: 120px;
+}
+
+/* Back to Top Button Styles */
+#back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    outline: none;
+    z-index: 10001;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    box-shadow: 0 4px 16px rgba(32, 122, 60, 0.18);
+}
+#back-to-top svg {
+    width: 48px;
+    height: 48px;
+    display: block;
+}
+#back-to-top:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(32, 122, 60, 0.25);
+}
+#back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+@media (max-width: 700px) {
+    #back-to-top {
+        bottom: 18px;
+        right: 18px;
+        width: 44px;
+        height: 44px;
+    }
+    #back-to-top svg {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Email Response Popup Styles */
+#response-message {
+    position: fixed;
+    top: 90px;
+    right: 32px;
+    min-width: 260px;
+    max-width: 350px;
+    background: #fff;
+    color: #222;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    padding: 18px 28px;
+    font-size: 1.1rem;
+    font-family: 'Poppins', 'Josefin Sans', sans-serif;
+    z-index: 20000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s;
+    transform: translateY(-20px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#response-message.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+#response-message.invisible {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+}
+#response-message.success {
+    border-left: 6px solid #207a3c;
+}
+#response-message.error {
+    border-left: 6px solid #d12c2c;
+}
+@media (max-width: 700px) {
+    #response-message {
+        right: 10px;
+        left: 10px;
+        min-width: unset;
+        max-width: unset;
+        padding: 14px 10px;
+        font-size: 1rem;
+    }
+}
+
+/* Section scroll-in animation */
+.section-card.section-hidden {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1) var(--section-delay, 0s),
+                transform 0.7s cubic-bezier(0.4,0,0.2,1) var(--section-delay, 0s);
+}
+.section-card.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1) var(--section-delay, 0s),
+                transform 0.7s cubic-bezier(0.4,0,0.2,1) var(--section-delay, 0s);
+}
+
+@media (max-width: 500px) {
+    #back-to-top {
+        bottom: 10px;
+        right: 10px;
+        width: 54px;
+        height: 54px;
+        box-shadow: 0 2px 8px rgba(32, 122, 60, 0.18);
+    }
+    #back-to-top svg {
+        width: 32px;
+        height: 32px;
+    }
+    #response-message {
+        top: 70px;
+        right: 4vw;
+        left: 4vw;
+        padding: 10px 6px;
+        font-size: 0.98rem;
+        border-radius: 7px;
+        min-width: unset;
+        max-width: unset;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+        text-align: left;
+        line-height: 1.4;
+    }
 }

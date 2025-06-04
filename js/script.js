@@ -23,12 +23,6 @@ window.addEventListener("scroll", function () {
     const scrollThreshold = 50;
     const lockThreshold = heroTop + heroHeight + 250;
 
-    // if (window.scrollY < lastScrollTop && scrollPosition <= lockThreshold) {
-    //     window.scrollTo(0, heroTop);
-    // }
-
-    // lastScrollTop = window.scrollY <= 0 ? 0 : window.scrollY;
-
     // Batch DOM updates by using requestAnimationFrame
     requestAnimationFrame(() => {
         if (window.scrollY > scrollThreshold) {
@@ -46,140 +40,13 @@ window.addEventListener("scroll", function () {
     });
 });
 
-// Slideshow functionality
-// window.addEventListener('load', function () {
-//     hero.classList.add('expanded');
 
-//     const heroImages = document.querySelectorAll('img.hero-image');
-//     const indicators = document.querySelectorAll('.indicator');
-
-//     let currentIndex = 0;
-//     let slideInterval; // Store the interval ID
-
-//     function updateSlideshow(index) {
-//         heroImages.forEach((img, i) => {
-//             img.classList.toggle('active', i === index);
-//         });
-
-//         indicators.forEach((dot, i) => {
-//             dot.classList.toggle('active', i === index);
-//         });
-//     }
-
-//     // Add click event listeners to dots
-//     indicators.forEach((dot, index) => {
-//         dot.addEventListener('click', () => {
-//             currentIndex = index;
-//             updateSlideshow(currentIndex);
-//             resetInterval(); // Reset the interval on dot click
-//         });
-//     });
-
-//     // Function to start the slideshow
-//     function startInterval() {
-//         slideInterval = setInterval(() => {
-//             currentIndex = (currentIndex + 1) % heroImages.length; // Go to the next image
-//             updateSlideshow(currentIndex);
-//         }, 5000); // Adjust the interval as needed
-//     }
-
-//     // Function to reset the interval
-//     function resetInterval() {
-//         clearInterval(slideInterval); // Clear the existing interval
-//         startInterval(); // Start a new interval
-//     }
-
-//     // Initialize the slideshow
-//     updateSlideshow(currentIndex);
-//     startInterval(); // Start the interval when the page loads
-// });
-
-window.onload = function () {
-    emailjs.init("5FsB_4WIQNIEQOmz5");
-
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const templateParams = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                message: document.getElementById('message').value
-            };
-
-            emailjs.send('service_4hntcjv', 'template_cp0p4lr', templateParams)
-                .then(response => {
-                    const responseMessage = document.getElementById("response-message");
-                    responseMessage.textContent = "Message sent successfully!";
-                    responseMessage.classList.remove("invisible");
-                    responseMessage.classList.add("visible");
-                    contactForm.reset();
-
-                    // After 3 seconds, fade out the message
-                    setTimeout(() => {
-                        responseMessage.classList.remove("visible");
-                        responseMessage.classList.add("invisible");
-                    }, 5000); // 5000ms = 3 seconds
-                })
-                .catch(error => {
-                    const responseMessage = document.getElementById("response-message");
-                    console.error("EmailJS Error:", error);
-                    responseMessage.textContent = "An error occurred: " + error.text;
-                    responseMessage.classList.remove("invisible");
-                    responseMessage.classList.add("visible");
-
-                    // After 3 seconds, fade out the message
-                    setTimeout(() => {
-                        responseMessage.classList.remove("visible");
-                        responseMessage.classList.add("invisible");
-                    }, 5000); // 5000ms = 5 seconds
-                });
-        });
-    }
-};
-
+// Sidebar
 const sidebarLinks = document.querySelectorAll('.sidebar a');
 sidebarLinks.forEach(link => {
     link.addEventListener('click', function () {
         sidebar.classList.remove('open');
         hamburger.classList.remove('open');
-    });
-});
-
-const radioTabs = document.querySelectorAll('input[name="tab"]');
-const allGrids = document.querySelectorAll('.grid');
-
-// Ensure tab1 is checked on page load
-document.getElementById('tab1').checked = true;
-showGridForTab(0);
-
-function showGridForTab(tabIndex) {
-    allGrids.forEach((grid, i) => {
-        grid.classList.remove('active', 'visible');
-        grid.style.display = 'none';
-    });
-
-    const targetGrid = allGrids[tabIndex];
-    targetGrid.style.display = 'grid';
-
-    // Force reflow to prep for transition
-    void targetGrid.offsetWidth;
-
-    // Then activate
-    targetGrid.classList.add('active');
-
-    // Add 'visible' on next tick to trigger the transition
-    setTimeout(() => {
-        targetGrid.classList.add('visible');
-    }, 10); // 10ms is enough
-}
-
-radioTabs.forEach((radio, index) => {
-    radio.addEventListener('change', () => {
-        if (radio.checked) {
-            showGridForTab(index);
-        }
     });
 });
 
@@ -268,5 +135,41 @@ if (learnMoreBtn) {
         }
     });
 }
+
+// Back to Top Button functionality
+const backToTopBtn = document.getElementById('back-to-top');
+if (backToTopBtn) {
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 200) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+    backToTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// Section scroll-in animation for all pages
+(function() {
+    const sections = Array.from(document.querySelectorAll('.section-card')).filter(
+        el => !el.closest('.grid') // Exclude grid items
+    );
+    sections.forEach(section => {
+        section.classList.add('section-hidden');
+    });
+    const observer = new window.IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                // Stagger based on index in the NodeList
+                entry.target.style.setProperty('--section-delay', `${i * 0.12}s`);
+                entry.target.classList.add('section-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+    sections.forEach(section => observer.observe(section));
+})();
 
 
