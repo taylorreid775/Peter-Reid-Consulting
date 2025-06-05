@@ -140,7 +140,9 @@ if (learnMoreBtn) {
 const backToTopBtn = document.getElementById('back-to-top');
 if (backToTopBtn) {
     window.addEventListener('scroll', function () {
-        if (window.scrollY > 200) {
+        const scrolledDown = window.scrollY > 200;
+        const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
+        if (scrolledDown || atBottom) {
             backToTopBtn.classList.add('visible');
         } else {
             backToTopBtn.classList.remove('visible');
