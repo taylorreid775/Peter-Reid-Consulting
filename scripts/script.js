@@ -55,52 +55,133 @@ const modalOverlay = document.querySelector('.modal-overlay');
 const modalImg = modalOverlay.querySelector('img');
 const closeModal = document.querySelector('.close-modal');
 
-console.log('Modal elements:', { modalOverlay, modalImg, closeModal }); // Debug log
+// Add next/prev buttons to modal
+let modalPrev = document.createElement('button');
+modalPrev.className = 'modal-nav modal-prev';
+modalPrev.innerHTML = '&#8592;';
+let modalNext = document.createElement('button');
+modalNext.className = 'modal-nav modal-next';
+modalNext.innerHTML = '&#8594;';
+modalOverlay.querySelector('.modal-content').appendChild(modalPrev);
+modalOverlay.querySelector('.modal-content').appendChild(modalNext);
 
 // Add click event to all grid images
 const gridImages = document.querySelectorAll('.grid-item img');
-console.log('Found grid images:', gridImages.length); // Debug log
+let currentImgIndex = -1;
+let imagesArr = Array.from(gridImages);
+let currentGrid = null;
 
-gridImages.forEach(img => {
+function openModalAtIndex(idx, grid) {
+    if (!grid) return;
+    imagesArr = Array.from(grid.querySelectorAll('img'));
+    if (idx < 0 || idx >= imagesArr.length) return;
+    currentImgIndex = idx;
+    currentGrid = grid;
+    const img = imagesArr[idx];
+    // Fade out current image
+    modalImg.classList.remove('modal-img-fadein');
+    modalImg.classList.add('modal-img-fadeout');
+    setTimeout(() => {
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+        modalImg.classList.remove('modal-img-fadeout');
+        modalImg.classList.add('modal-img-fadein');
+    }, 180);
+    modalImg.classList.add('modal-img-scaled');
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    // Hide back-to-top
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) backToTopBtn.style.display = 'none';
+}
+
+gridImages.forEach((img) => {
     img.addEventListener('click', function(e) {
-        console.log('Image clicked:', this.src); // Debug log
         e.preventDefault();
-        modalImg.src = this.src;
-        modalImg.alt = this.alt;
-        modalImg.classList.add('modal-img-scaled'); // Add scale-up class
-        console.log('Before adding active class'); // Debug log
-        modalOverlay.classList.add('active');
-        console.log('After adding active class, current classes:', modalOverlay.classList); // Debug log
-        document.body.style.overflow = 'hidden';
+        const grid = img.closest('ul.grid');
+        const imgsInGrid = Array.from(grid.querySelectorAll('img'));
+        const idx = imgsInGrid.indexOf(img);
+        openModalAtIndex(idx, grid);
     });
 });
 
-// Close modal when clicking the X or overlay
-closeModal.addEventListener('click', function(e) {
-    console.log('Close button clicked'); // Debug log
-    e.preventDefault();
+function closeModalFunc() {
     modalOverlay.classList.remove('active');
-    modalImg.classList.remove('modal-img-scaled'); // Remove scale-up class
+    modalImg.classList.remove('modal-img-scaled', 'modal-img-fadein', 'modal-img-fadeout');
     document.body.style.overflow = '';
+    // Show back-to-top
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) backToTopBtn.style.display = '';
+}
+
+closeModal.addEventListener('click', function(e) {
+    e.preventDefault();
+    closeModalFunc();
 });
 
 modalOverlay.addEventListener('click', function(e) {
     if (e.target === modalOverlay) {
-        console.log('Overlay clicked'); // Debug log
-        modalOverlay.classList.remove('active');
-        modalImg.classList.remove('modal-img-scaled'); // Remove scale-up class
-        document.body.style.overflow = '';
+        closeModalFunc();
     }
 });
 
-// Close modal when pressing Escape key
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-        console.log('Escape key pressed'); // Debug log
-        modalOverlay.classList.remove('active');
-        modalImg.classList.remove('modal-img-scaled'); // Remove scale-up class
-        document.body.style.overflow = '';
+    if (!modalOverlay.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+        closeModalFunc();
+    } else if (e.key === 'ArrowLeft') {
+        showPrevImg();
+    } else if (e.key === 'ArrowRight') {
+        showNextImg();
     }
+});
+
+function showPrevImg() {
+    if (!currentGrid) return;
+    imagesArr = Array.from(currentGrid.querySelectorAll('img'));
+    if (currentImgIndex > 0) {
+        openModalAtIndex(currentImgIndex - 1, currentGrid);
+    } else {
+        openModalAtIndex(imagesArr.length - 1, currentGrid); // wrap around
+    }
+}
+function showNextImg() {
+    if (!currentGrid) return;
+    imagesArr = Array.from(currentGrid.querySelectorAll('img'));
+    if (currentImgIndex < imagesArr.length - 1) {
+        openModalAtIndex(currentImgIndex + 1, currentGrid);
+    } else {
+        openModalAtIndex(0, currentGrid); // wrap around
+    }
+}
+modalPrev.addEventListener('click', function(e) {
+    e.stopPropagation();
+    showPrevImg();
+});
+modalNext.addEventListener('click', function(e) {
+    e.stopPropagation();
+    showNextImg();
+});
+
+// Touch swipe support for mobile
+let touchStartX = null;
+modalImg.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+    }
+});
+modalImg.addEventListener('touchend', function(e) {
+    if (touchStartX === null) return;
+    let touchEndX = e.changedTouches[0].clientX;
+    let dx = touchEndX - touchStartX;
+    if (Math.abs(dx) > 40) {
+        if (dx > 0) {
+            showPrevImg();
+        } else {
+            showNextImg();
+        }
+    }
+    touchStartX = null;
 });
 
 // Add scroll down chevron functionality
