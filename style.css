@@ -225,7 +225,6 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     font-size: 1.2rem;
-    text-transform: uppercase;
     letter-spacing: 1px;
     text-decoration: none;
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
@@ -570,6 +569,10 @@ footer {
     opacity: 1;
     transform: translateY(0);
     visibility: visible;
+}
+
+.portfolio-page .section-card:first-child {
+    margin-top: 120px;
 }
 
 .grid .grid-item.visible {
@@ -1455,10 +1458,6 @@ body.no-scroll, html.no-scroll {
 
 .section-card-text-content *:not(.accent-line, .bio-quote) {
     margin: 0;
-}
-
-.portfolio-page .portfolio {
-    margin-top: 120px;
 }
 
 /* Back to Top Button Styles */

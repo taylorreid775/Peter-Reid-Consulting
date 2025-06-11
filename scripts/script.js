@@ -25,6 +25,11 @@ window.addEventListener("scroll", function () {
 
     // Batch DOM updates by using requestAnimationFrame
     requestAnimationFrame(() => {
+        // Don't show topbar if sidebar is open
+        if (sidebar.classList.contains('open')) {
+            return;
+        }
+        
         if (window.scrollY > scrollThreshold) {
             topBar.classList.remove("transparent");
             title.classList.remove("transparent");
@@ -48,6 +53,39 @@ sidebarLinks.forEach(link => {
         sidebar.classList.remove('open');
         hamburger.classList.remove('open');
     });
+});
+
+// Close sidebar when clicking outside
+document.addEventListener('click', function(e) {
+    if (sidebar.classList.contains('open') && 
+        !sidebar.contains(e.target) && 
+        !hamburger.contains(e.target)) {
+        sidebar.classList.remove('open');
+        hamburger.classList.remove('open');
+        
+        // Handle topbar visibility based on page type
+        if (hero) {
+            // On index page, respect scroll position
+            const scrollThreshold = 50;
+            if (window.scrollY <= scrollThreshold) {
+                topBar.classList.add('transparent');
+                title.classList.add('transparent');
+                navLinks.classList.add('transparent');
+                hamburger.classList.add('transparent');
+            } else {
+                topBar.classList.remove('transparent');
+                title.classList.remove('transparent');
+                navLinks.classList.remove('transparent');
+                hamburger.classList.remove('transparent');
+            }
+        } else {
+            // On other pages, always show topbar
+            topBar.classList.remove('transparent');
+            title.classList.remove('transparent');
+            navLinks.classList.remove('transparent');
+            hamburger.classList.remove('transparent');
+        }
+    }
 });
 
 // Modal functionality
