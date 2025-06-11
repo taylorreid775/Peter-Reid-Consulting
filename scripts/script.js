@@ -65,6 +65,11 @@ modalNext.innerHTML = '&#8594;';
 modalOverlay.querySelector('.modal-content').appendChild(modalPrev);
 modalOverlay.querySelector('.modal-content').appendChild(modalNext);
 
+// Add acknowledgement box to modal
+let modalAcknowledgement = document.createElement('div');
+modalAcknowledgement.className = 'modal-acknowledgement';
+modalOverlay.querySelector('.modal-content').appendChild(modalAcknowledgement);
+
 // Add click event to all grid images
 const gridImages = document.querySelectorAll('.grid-item img');
 let currentImgIndex = -1;
@@ -86,6 +91,20 @@ function openModalAtIndex(idx, grid) {
         modalImg.alt = img.alt;
         modalImg.classList.remove('modal-img-fadeout');
         modalImg.classList.add('modal-img-fadein');
+        // Set acknowledgement text
+        const company = img.getAttribute('data-company');
+        const companyUrl = img.getAttribute('data-company-url');
+        if (company) {
+            if (companyUrl) {
+                modalAcknowledgement.innerHTML = `Installed by: <a href="${companyUrl}" target="_blank" rel="noopener noreferrer">${company}</a>`;
+            } else {
+                modalAcknowledgement.textContent = `Installed by: ${company}`;
+            }
+            modalAcknowledgement.style.display = 'block';
+        } else {
+            modalAcknowledgement.textContent = '';
+            modalAcknowledgement.style.display = 'none';
+        }
     }, 180);
     modalImg.classList.add('modal-img-scaled');
     modalOverlay.classList.add('active');
