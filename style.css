@@ -776,9 +776,11 @@ footer {
     transform: translateY(100px);
 }
 
+/* Public Spaces tab styles temporarily disabled
 #tabs input[type="radio"]:nth-of-type(4):checked ~ .marker {
     transform: translateY(150px);
 }
+*/
 
 #tabs input[type="radio"]:nth-of-type(5):checked ~ .marker {
     transform: translateY(200px);
