@@ -96,10 +96,10 @@ const closeModal = document.querySelector('.close-modal');
 // Add next/prev buttons to modal
 let modalPrev = document.createElement('button');
 modalPrev.className = 'modal-nav modal-prev';
-modalPrev.innerHTML = '&#8592;';
+modalPrev.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 12H4M4 12L12 20M4 12L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 let modalNext = document.createElement('button');
 modalNext.className = 'modal-nav modal-next';
-modalNext.innerHTML = '&#8594;';
+modalNext.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12H20M20 12L12 4M20 12L12 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 modalOverlay.querySelector('.modal-content').appendChild(modalPrev);
 modalOverlay.querySelector('.modal-content').appendChild(modalNext);
 
@@ -215,10 +215,12 @@ function showNextImg() {
 }
 modalPrev.addEventListener('click', function(e) {
     e.stopPropagation();
+    this.blur(); // Remove focus after click
     showPrevImg();
 });
 modalNext.addEventListener('click', function(e) {
     e.stopPropagation();
+    this.blur(); // Remove focus after click
     showNextImg();
 });
 
