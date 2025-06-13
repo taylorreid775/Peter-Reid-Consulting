@@ -132,11 +132,13 @@ function openModalAtIndex(idx, grid) {
         // Set acknowledgement text
         const company = img.getAttribute('data-company');
         const companyUrl = img.getAttribute('data-company-url');
+        const type = img.getAttribute('data-type');
         if (company) {
+            const prefix = type === 'pool' ? 'Pool Installed by: ' : 'Installed by: ';
             if (companyUrl) {
-                modalAcknowledgement.innerHTML = `Installed by: <a href="${companyUrl}" target="_blank" rel="noopener noreferrer">${company}</a>`;
+                modalAcknowledgement.innerHTML = `${prefix}<a href="${companyUrl}" target="_blank" rel="noopener noreferrer">${company}</a>`;
             } else {
-                modalAcknowledgement.textContent = `Installed by: ${company}`;
+                modalAcknowledgement.textContent = `${prefix}${company}`;
             }
             modalAcknowledgement.style.display = 'block';
         } else {
