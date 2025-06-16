@@ -1484,8 +1484,8 @@ body.no-scroll, html.no-scroll {
     box-shadow: 0 4px 16px rgba(32, 122, 60, 0.18);
 }
 #back-to-top svg {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     display: block;
 }
 #back-to-top:hover {
@@ -1504,8 +1504,8 @@ body.no-scroll, html.no-scroll {
         height: 44px;
     }
     #back-to-top svg {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
     }
 }
 
@@ -1573,7 +1573,7 @@ body.no-scroll, html.no-scroll {
                 transform 0.7s cubic-bezier(0.4,0,0.2,1) var(--section-delay, 0s);
 }
 @media (max-width: 500px) {
-    #back-to-top {
+    /* #back-to-top {
         bottom: 10px;
         right: 10px;
         width: 54px;
@@ -1583,7 +1583,7 @@ body.no-scroll, html.no-scroll {
     #back-to-top svg {
         width: 32px;
         height: 32px;
-    }
+    } */
     #response-message {
         top: 70px;
         right: 4vw;

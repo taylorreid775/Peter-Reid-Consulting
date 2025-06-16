@@ -280,19 +280,26 @@ if (learnMoreBtn) {
 
 // Back to Top Button functionality
 const backToTopBtn = document.getElementById('back-to-top');
-if (backToTopBtn) {
+const ccRevokeBtn = document.querySelector('.cc-revoke'); // Get the cookie revoke button
+
+if (backToTopBtn || ccRevokeBtn) {
     window.addEventListener('scroll', function () {
         const scrolledDown = window.scrollY > 200;
         const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
+
         if (scrolledDown || atBottom) {
-            backToTopBtn.classList.add('visible');
+            if (backToTopBtn) backToTopBtn.classList.add('visible');
+            if (ccRevokeBtn) ccRevokeBtn.classList.add('visible'); // Make cookie button visible
         } else {
-            backToTopBtn.classList.remove('visible');
+            if (backToTopBtn) backToTopBtn.classList.remove('visible');
+            if (ccRevokeBtn) ccRevokeBtn.classList.remove('visible'); // Make cookie button invisible
         }
     });
-    backToTopBtn.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
 // Section scroll-in animation for all pages

@@ -29,6 +29,7 @@ window.cookieconsent.initialise({
         if (didConsent) {
             enableCookies();
         }
+        initialiseCcRevokeButton();
     },
     "onStatusChange": function(status, chosenBefore) {
         var type = this.options.type;
@@ -54,18 +55,19 @@ style.textContent = `
         width: 100% !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        padding: 0.8rem 1.5rem !important; /* Adjusted padding for smaller size */
-        box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important; /* Adjusted shadow for top */
-        border-bottom: 1px solid rgba(32,122,60,0.1) !important; /* Border at bottom for top position */
-        border-radius: 0 0 18px 18px !important; /* Rounded bottom corners */
-        top: 0 !important; /* Ensure it's at the very top */
+        padding: 0.8rem 1.5rem !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08) !important;
+        border-bottom: 1px solid rgba(32,122,60,0.1) !important;
+        border-radius: 0 0 18px 18px !important;
+        top: 0 !important;
+        bottom: auto !important;
         margin-top: 0 !important;
     }
     .cc-message {
-        font-size: 0.95rem !important; /* Smaller font size */
+        font-size: 0.95rem !important;
         line-height: 1.5 !important;
         color: #333 !important;
-        margin-bottom: 0.8rem !important; /* Smaller margin */
+        margin-bottom: 0.8rem !important;
     }
     .cc-link {
         color: #207a3c !important;
@@ -78,11 +80,11 @@ style.textContent = `
     .cc-btn {
         font-family: 'Poppins', sans-serif !important;
         font-weight: 600 !important;
-        font-size: 0.85rem !important; /* Smaller font size */
-        padding: 0.6rem 1.2rem !important; /* Smaller padding */
+        font-size: 0.85rem !important;
+        padding: 0.6rem 1.2rem !important;
         border-radius: 6px !important;
         transition: all 0.2s ease !important;
-        min-width: 90px; /* Adjusted min-width */
+        min-width: 90px;
     }
     .cc-allow {
         background: #207a3c !important;
@@ -103,17 +105,52 @@ style.textContent = `
     }
     .cc-compliance {
         display: flex;
-        gap: 10px; /* Smaller gap between buttons */
+        gap: 10px;
         justify-content: flex-end;
         flex-wrap: wrap;
     }
+    .cc-revoke {
+        right: auto !important;
+        bottom: 32px !important;
+        left: 32px !important;
+        top: auto !important;
+        background: rgba(255,255,255,0.92) !important;
+        color: #207a3c !important;
+        font-family: 'Poppins', 'Josefin Sans', sans-serif !important;
+        font-size: 1.08rem !important;
+        font-weight: 500 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 12px rgba(32,122,60,0.10) !important;
+        padding: 12px 22px !important;
+        z-index: 10002 !important;
+        pointer-events: none;
+        transition: opacity 0.3s, transform 0.3s ease;
+        opacity: 0;
+        letter-spacing: 0.01em !important;
+        min-width: unset !important;
+        text-align: center !important;
+        transform: none !important;
+    }
+    .cc-revoke.visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .cc-revoke:hover {
+        background: rgba(245,245,245,0.92) !important;
+        transform: scale(1.03) !important;
+    }
     @media (max-width: 700px) {
         .cc-window {
-            padding: 0.6rem 1rem !important; /* Adjusted padding for mobile */
-            border-radius: 0 0 10px 10px !important;
+            padding: 0.6rem 1rem !important;
+            border-radius: 10px 10px 0 0 !important;
+            top: auto !important;
+            bottom: 0 !important;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.08) !important;
+            border-bottom: none !important;
+            border-top: 1px solid rgba(32,122,60,0.1) !important;
         }
         .cc-message {
-            font-size: 0.85rem !important; /* Smaller font size for mobile */
+            font-size: 0.85rem !important;
             margin-bottom: 0.6rem !important;
         }
         .cc-btn {
@@ -124,11 +161,70 @@ style.textContent = `
         }
         .cc-compliance {
             flex-direction: column;
-            gap: 8px; /* Smaller gap for mobile */
+            gap: 8px;
+        }
+        .cc-revoke {
+            right: auto !important;
+            bottom: 18px !important;
+            left: 18px !important;
+            font-size: 0.98rem !important;
+            padding: 8px 12px !important;
+            transform: none !important;
+            background: rgba(255,255,255,0.92) !important;
+            color: #207a3c !important;
+            font-family: 'Poppins', 'Josefin Sans', sans-serif !important;
+            font-weight: 500 !important;
+            border-radius: 8px !important;
+            box-shadow: 0 2px 12px rgba(32,122,60,0.10) !important;
+            z-index: 10002 !important;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s ease;
+            opacity: 0;
+            letter-spacing: 0.01em !important;
+            min-width: unset !important;
+            text-align: center !important;
+        }
+        .cc-revoke.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .cc-revoke:hover {
+            background: rgba(245,245,245,0.92) !important;
+            transform: scale(1.03) !important;
+        }
+    }
+    @media (max-width: 500px) {
+        .cc-revoke {
+            right: auto !important;
+            bottom: 10px !important;
+            left: 10px !important;
+            font-size: 0.9rem !important;
+            padding: 6px 10px !important;
+            border-radius: 6px !important;
+            box-shadow: 0 2px 8px rgba(32,122,60,0.08) !important;
         }
     }
 `;
 document.head.appendChild(style);
+
+// Add scroll-based visibility logic for cookie policy button
+window.addEventListener('scroll', function() {
+    const ccRevokeBtn = document.querySelector('.cc-revoke');
+    if (ccRevokeBtn) {
+        const scrolledDown = window.scrollY > 200;
+        const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
+
+        if (scrolledDown || atBottom) {
+            // Ensure transition is set when making visible
+            ccRevokeBtn.style.transition = 'opacity 0.3s, transform 0.3s ease';
+            ccRevokeBtn.style.opacity = '1';
+            ccRevokeBtn.style.pointerEvents = 'auto';
+        } else {
+            ccRevokeBtn.style.opacity = '0';
+            ccRevokeBtn.style.pointerEvents = 'none';
+        }
+    }
+});
 
 function enableCookies() {
     // Enable Google Fonts
@@ -156,4 +252,18 @@ function disableCookies() {
             'analytics_storage': 'denied'
         });
     }
-} 
+}
+
+// Function to initialize button state for smooth transition
+function initialiseCcRevokeButton() {
+    const ccRevokeBtn = document.querySelector('.cc-revoke');
+    if (ccRevokeBtn) {
+        // Ensure initial state is hidden with transitions enabled
+        ccRevokeBtn.style.opacity = '0';
+        ccRevokeBtn.style.transition = 'opacity 0.3s, transform 0.3s ease';
+        ccRevokeBtn.style.pointerEvents = 'none'; // Ensure it's not clickable when hidden
+    }
+}
+
+// Call the initialization function immediately
+initialiseCcRevokeButton(); 
