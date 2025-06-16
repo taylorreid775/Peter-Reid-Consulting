@@ -582,16 +582,16 @@ footer {
     cursor: pointer;
 }
 
-.grid.visible .grid-item:nth-child(1) {
+.grid.visible .grid-item:nth-child(1):not(.portfolio-page .grid-item) {
     transition-delay: 0.1s;
 }
-.grid.visible .grid-item:nth-child(2) {
+.grid.visible .grid-item:nth-child(2):not(.portfolio-page .grid-item) {
     transition-delay: 0.2s;
 }
-.grid.visible .grid-item:nth-child(3) {
+.grid.visible .grid-item:nth-child(3):not(.portfolio-page .grid-item) {
     transition-delay: 0.3s;
 }
-.grid.visible .grid-item:nth-child(4) {
+.grid.visible .grid-item:nth-child(4):not(.portfolio-page .grid-item) {
     transition-delay: 0.4s;
 }
 
