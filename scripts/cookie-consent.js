@@ -1,17 +1,43 @@
+// Check for existing cookie consent status
+function getCookieConsentStatus() {
+    const name = 'cookieconsent_status=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for(let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return null;
+}
+
+// Initialize the page based on cookie consent status
+function initializePage() {
+    const consentStatus = getCookieConsentStatus();
+    if (consentStatus === 'allow') {
+        enableCookies();
+    } else {
+        disableCookies();
+    }
+}
+
+// Initialize cookie consent
 window.cookieconsent.initialise({
     "palette": {
         "popup": {
-            "background": "rgb(255, 255, 255)",
-            "text": "#333"
+            "background": "#ffffff",
+            "text": "#000000",
+            "link": "#4CAF50"
         },
         "button": {
-            "background": "#207a3c",
+            "background": "#4CAF50",
             "text": "#ffffff"
         }
     },
     "type": "opt-in",
     "content": {
-        "message": "We use cookies to enhance your browsing experience and analyze our traffic. By clicking 'Accept', you consent to our use of cookies in accordance with Canadian privacy laws.",
+        "message": "We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.",
         "dismiss": "Decline",
         "allow": "Accept",
         "link": "Learn more",
@@ -19,7 +45,8 @@ window.cookieconsent.initialise({
     },
     "cookie": {
         "name": "cookieconsent_status",
-        "domain": window.location.hostname
+        "domain": window.location.hostname,
+        "expiryDays": 365 // Cookie will persist for 1 year
     },
     "position": "top",
     "theme": "classic",
@@ -28,6 +55,8 @@ window.cookieconsent.initialise({
         var didConsent = this.hasConsented();
         if (didConsent) {
             enableCookies();
+        } else {
+            disableCookies();
         }
         initialiseCcRevokeButton();
     },
@@ -62,12 +91,28 @@ style.textContent = `
         top: 0 !important;
         bottom: auto !important;
         margin-top: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        z-index: 10001 !important;
+        opacity: 1 !important;
+        transform: translateX(-50%) translateY(0) !important;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out !important;
+    }
+    .cc-window.cc-invisible {
+        opacity: 0 !important;
+        transform: translateX(-50%) translateY(-20px) !important;
+        pointer-events: none !important;
+    }
+    .cc-overlay {
+        display: none !important;
     }
     .cc-message {
         font-size: 0.95rem !important;
         line-height: 1.5 !important;
         color: #333 !important;
-        margin-bottom: 0.8rem !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        align-items: center !important;
     }
     .cc-link {
         color: #207a3c !important;
@@ -193,64 +238,100 @@ style.textContent = `
             transform: scale(1.03) !important;
         }
     }
-    @media (max-width: 500px) {
-        .cc-revoke {
-            right: auto !important;
-            bottom: 10px !important;
-            left: 10px !important;
-            font-size: 0.9rem !important;
-            padding: 6px 10px !important;
-            border-radius: 6px !important;
-            box-shadow: 0 2px 8px rgba(32,122,60,0.08) !important;
-        }
-    }
+    
 `;
 document.head.appendChild(style);
 
 // Add scroll-based visibility logic for cookie policy button
-window.addEventListener('scroll', function() {
+function updateRevokeButtonVisibility() {
     const ccRevokeBtn = document.querySelector('.cc-revoke');
     if (ccRevokeBtn) {
-        const scrolledDown = window.scrollY > 200;
-        const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
+        // Only apply scroll-based visibility on index.html
+        if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+            const scrolledDown = window.scrollY > 200;
+            const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
 
-        if (scrolledDown || atBottom) {
-            // Ensure transition is set when making visible
+            if (scrolledDown || atBottom) {
+                // Ensure transition is set when making visible
+                ccRevokeBtn.style.transition = 'opacity 0.3s, transform 0.3s ease';
+                ccRevokeBtn.style.opacity = '1';
+                ccRevokeBtn.style.pointerEvents = 'auto';
+            } else {
+                ccRevokeBtn.style.opacity = '0';
+                ccRevokeBtn.style.pointerEvents = 'none';
+            }
+        } else {
+            // Always show on other pages
             ccRevokeBtn.style.transition = 'opacity 0.3s, transform 0.3s ease';
             ccRevokeBtn.style.opacity = '1';
             ccRevokeBtn.style.pointerEvents = 'auto';
-        } else {
-            ccRevokeBtn.style.opacity = '0';
-            ccRevokeBtn.style.pointerEvents = 'none';
         }
     }
-});
+}
+
+// Initialize page state immediately
+initializePage();
+
+// Update revoke button visibility on scroll
+window.addEventListener('scroll', updateRevokeButtonVisibility);
 
 function enableCookies() {
-    // Enable Google Fonts
-    document.querySelectorAll('link[href*="fonts.googleapis.com"]').forEach(function(link) {
-        link.setAttribute('rel', 'stylesheet');
+    // Remove all existing placeholders
+    document.querySelectorAll('.cookie-consent-placeholder').forEach(placeholder => {
+        placeholder.remove();
     });
-    
-    // Enable Google Analytics if it exists
-    if (typeof gtag !== 'undefined') {
-        gtag('consent', 'update', {
-            'analytics_storage': 'granted'
-        });
+
+    // Show contact form and load EmailJS
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.style.display = 'block';
+        
+        // Load EmailJS script dynamically
+        if (!document.querySelector('script[src*="email.min.js"]')) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+            script.onload = function() {
+                // Initialize EmailJS after script loads
+                emailjs.init("5FsB_4WIQNIEQOmz5");
+            };
+            document.body.appendChild(script);
+        }
     }
 }
 
 function disableCookies() {
-    // Disable Google Fonts
-    document.querySelectorAll('link[href*="fonts.googleapis.com"]').forEach(function(link) {
-        link.setAttribute('rel', 'preconnect');
+    // Remove all existing placeholders
+    document.querySelectorAll('.cookie-consent-placeholder').forEach(placeholder => {
+        placeholder.remove();
     });
-    
-    // Disable Google Analytics if it exists
-    if (typeof gtag !== 'undefined') {
-        gtag('consent', 'update', {
-            'analytics_storage': 'denied'
-        });
+
+    // Create placeholder for contact form
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'cookie-consent-placeholder';
+        placeholder.style.cssText = `
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 20px 0;
+            padding: 20px;
+            text-align: center;
+        `;
+        placeholder.innerHTML = `
+            <p>Please accept cookies to use the contact form.</p>
+        `;
+        contactForm.style.display = 'none';
+        contactForm.parentNode.insertBefore(placeholder, contactForm);
+
+        // Remove EmailJS script if it exists
+        const emailjsScript = document.querySelector('script[src*="email.min.js"]');
+        if (emailjsScript) {
+            emailjsScript.remove();
+        }
     }
 }
 
@@ -266,4 +347,18 @@ function initialiseCcRevokeButton() {
 }
 
 // Call the initialization function immediately
-initialiseCcRevokeButton(); 
+initialiseCcRevokeButton();
+
+// Add fade out effect before hiding
+const originalHide = window.cookieconsent.hide;
+window.cookieconsent.hide = function() {
+    const popup = document.querySelector('.cc-window');
+    if (popup) {
+        popup.classList.add('cc-invisible');
+        setTimeout(() => {
+            originalHide.call(this);
+        }, 300); // Match the transition duration
+    } else {
+        originalHide.call(this);
+    }
+}; 

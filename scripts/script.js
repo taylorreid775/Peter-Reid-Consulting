@@ -16,13 +16,6 @@ const title = document.querySelector(".nav-title");
 const navLinks = document.querySelector(".top-bar nav");
 
 window.addEventListener("scroll", function () {
-    const heroHeight = hero.offsetHeight;
-    const heroTop = hero.offsetTop;
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const bottomOfImage = hero.offsetTop + heroHeight;
-    const scrollThreshold = 50;
-    const lockThreshold = heroTop + heroHeight + 250;
-
     // Batch DOM updates by using requestAnimationFrame
     requestAnimationFrame(() => {
         // Don't show topbar if sidebar is open
@@ -30,17 +23,27 @@ window.addEventListener("scroll", function () {
             return;
         }
         
-        if (window.scrollY > scrollThreshold) {
+        // Only handle transparent behavior on index page
+        if (hero) {
+            const scrollThreshold = 50;
+            if (window.scrollY > scrollThreshold) {
+                topBar.classList.remove("transparent");
+                title.classList.remove("transparent");
+                navLinks.classList.remove("transparent");
+                hamburger.classList.remove("transparent");
+            } else {
+                topBar.classList.add("transparent");
+                title.classList.add("transparent");
+                navLinks.classList.add("transparent");
+                hamburger.classList.add("transparent");
+                hero.classList.add('expanded');
+            }
+        } else {
+            // On non-index pages, always show topbar
             topBar.classList.remove("transparent");
             title.classList.remove("transparent");
             navLinks.classList.remove("transparent");
             hamburger.classList.remove("transparent");
-        } else {
-            topBar.classList.add("transparent");
-            title.classList.add("transparent");
-            navLinks.classList.add("transparent");
-            hamburger.classList.add("transparent");
-            hero.classList.add('expanded');
         }
     });
 });
@@ -90,160 +93,171 @@ document.addEventListener('click', function(e) {
 
 // Modal functionality
 const modalOverlay = document.querySelector('.modal-overlay');
-const modalImg = modalOverlay.querySelector('img');
-const closeModal = document.querySelector('.close-modal');
+const modalImg = modalOverlay?.querySelector('img');
+const closeModal = modalOverlay?.querySelector('.close-modal');
 
-// Add next/prev buttons to modal
-let modalPrev = document.createElement('button');
-modalPrev.className = 'modal-nav modal-prev';
-modalPrev.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 12H4M4 12L12 20M4 12L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-let modalNext = document.createElement('button');
-modalNext.className = 'modal-nav modal-next';
-modalNext.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12H20M20 12L12 4M20 12L12 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-modalOverlay.querySelector('.modal-content').appendChild(modalPrev);
-modalOverlay.querySelector('.modal-content').appendChild(modalNext);
+// Only initialize modal functionality if modal elements exist
+if (modalOverlay && modalImg && closeModal) {
+    // Add next/prev buttons to modal
+    let modalPrev = document.createElement('button');
+    modalPrev.className = 'modal-nav modal-prev';
+    modalPrev.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 12H4M4 12L12 20M4 12L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    let modalNext = document.createElement('button');
+    modalNext.className = 'modal-nav modal-next';
+    modalNext.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12H20M20 12L12 4M20 12L12 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    modalOverlay.querySelector('.modal-content').appendChild(modalPrev);
+    modalOverlay.querySelector('.modal-content').appendChild(modalNext);
 
-// Add acknowledgement box to modal
-let modalAcknowledgement = document.createElement('div');
-modalAcknowledgement.className = 'modal-acknowledgement';
-modalOverlay.querySelector('.modal-content').appendChild(modalAcknowledgement);
+    // Add acknowledgement box to modal
+    let modalAcknowledgement = document.createElement('div');
+    modalAcknowledgement.className = 'modal-acknowledgement';
+    modalOverlay.querySelector('.modal-content').appendChild(modalAcknowledgement);
 
-// Add click event to all grid images
-const gridImages = document.querySelectorAll('.grid-item img');
-let currentImgIndex = -1;
-let imagesArr = Array.from(gridImages);
-let currentGrid = null;
+    // Add click event to all grid images
+    const gridImages = document.querySelectorAll('.grid-item img');
+    let currentImgIndex = -1;
+    let imagesArr = Array.from(gridImages);
+    let currentGrid = null;
 
-function openModalAtIndex(idx, grid) {
-    if (!grid) return;
-    imagesArr = Array.from(grid.querySelectorAll('img'));
-    if (idx < 0 || idx >= imagesArr.length) return;
-    currentImgIndex = idx;
-    currentGrid = grid;
-    const img = imagesArr[idx];
-    // Fade out current image
-    modalImg.classList.remove('modal-img-fadein');
-    modalImg.classList.add('modal-img-fadeout');
-    setTimeout(() => {
-        modalImg.src = img.src;
-        modalImg.alt = img.alt;
-        modalImg.classList.remove('modal-img-fadeout');
-        modalImg.classList.add('modal-img-fadein');
-        // Set acknowledgement text
-        const company = img.getAttribute('data-company');
-        const companyUrl = img.getAttribute('data-company-url');
-        const type = img.getAttribute('data-type');
-        if (company) {
-            const prefix = type === 'pool' ? 'Pool Installed by: ' : 'Installed by: ';
-            if (companyUrl) {
-                modalAcknowledgement.innerHTML = `${prefix}<a href="${companyUrl}" target="_blank" rel="noopener noreferrer">${company}</a>`;
+    function openModalAtIndex(idx, grid) {
+        if (!grid) return;
+        imagesArr = Array.from(grid.querySelectorAll('img'));
+        if (idx < 0 || idx >= imagesArr.length) return;
+        currentImgIndex = idx;
+        currentGrid = grid;
+        const img = imagesArr[idx];
+        // Fade out current image
+        modalImg.classList.remove('modal-img-fadein');
+        modalImg.classList.add('modal-img-fadeout');
+        setTimeout(() => {
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            modalImg.classList.remove('modal-img-fadeout');
+            modalImg.classList.add('modal-img-fadein');
+            // Set acknowledgement text
+            const company = img.getAttribute('data-company');
+            const companyUrl = img.getAttribute('data-company-url');
+            const type = img.getAttribute('data-type');
+            if (company) {
+                const prefix = type === 'pool' ? 'Pool Installed by: ' : 'Installed by: ';
+                if (companyUrl) {
+                    modalAcknowledgement.innerHTML = `${prefix}<a href="${companyUrl}" target="_blank" rel="noopener noreferrer">${company}</a>`;
+                } else {
+                    modalAcknowledgement.textContent = `${prefix}${company}`;
+                }
+                modalAcknowledgement.style.display = 'block';
             } else {
-                modalAcknowledgement.textContent = `${prefix}${company}`;
+                modalAcknowledgement.textContent = '';
+                modalAcknowledgement.style.display = 'none';
             }
-            modalAcknowledgement.style.display = 'block';
-        } else {
-            modalAcknowledgement.textContent = '';
-            modalAcknowledgement.style.display = 'none';
-        }
-    }, 180);
-    modalImg.classList.add('modal-img-scaled');
-    modalOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    // Hide back-to-top
-    const backToTopBtn = document.getElementById('back-to-top');
-    if (backToTopBtn) backToTopBtn.style.display = 'none';
-}
+        }, 180);
+        modalImg.classList.add('modal-img-scaled');
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Hide back-to-top and cookie policy button
+        const backToTopBtn = document.getElementById('back-to-top');
+        const ccRevokeBtn = document.querySelector('.cc-revoke');
+        if (backToTopBtn) backToTopBtn.style.display = 'none';
+        if (ccRevokeBtn) ccRevokeBtn.style.display = 'none';
+    }
 
-gridImages.forEach((img) => {
-    img.addEventListener('click', function(e) {
-        e.preventDefault();
-        const grid = img.closest('ul.grid');
-        const imgsInGrid = Array.from(grid.querySelectorAll('img'));
-        const idx = imgsInGrid.indexOf(img);
-        openModalAtIndex(idx, grid);
+    gridImages.forEach((img) => {
+        img.addEventListener('click', function(e) {
+            e.preventDefault();
+            const grid = img.closest('ul.grid');
+            const imgsInGrid = Array.from(grid.querySelectorAll('img'));
+            const idx = imgsInGrid.indexOf(img);
+            openModalAtIndex(idx, grid);
+        });
     });
-});
 
-function closeModalFunc() {
-    modalOverlay.classList.remove('active');
-    modalImg.classList.remove('modal-img-scaled', 'modal-img-fadein', 'modal-img-fadeout');
-    document.body.style.overflow = '';
-    // Show back-to-top
-    const backToTopBtn = document.getElementById('back-to-top');
-    if (backToTopBtn) backToTopBtn.style.display = '';
-}
+    function closeModalFunc() {
+        modalOverlay.classList.remove('active');
+        modalImg.classList.remove('modal-img-scaled', 'modal-img-fadein', 'modal-img-fadeout');
+        document.body.style.overflow = '';
+        // Show back-to-top and cookie policy button
+        const backToTopBtn = document.getElementById('back-to-top');
+        const ccRevokeBtn = document.querySelector('.cc-revoke');
+        if (backToTopBtn) backToTopBtn.style.display = '';
+        if (ccRevokeBtn) ccRevokeBtn.style.display = '';
+    }
 
-closeModal.addEventListener('click', function(e) {
-    e.preventDefault();
-    closeModalFunc();
-});
-
-modalOverlay.addEventListener('click', function(e) {
-    if (e.target === modalOverlay) {
+    closeModal.addEventListener('click', function(e) {
+        e.preventDefault();
         closeModalFunc();
-    }
-});
+    });
 
-document.addEventListener('keydown', function(e) {
-    if (!modalOverlay.classList.contains('active')) return;
-    if (e.key === 'Escape') {
-        closeModalFunc();
-    } else if (e.key === 'ArrowLeft') {
-        showPrevImg();
-    } else if (e.key === 'ArrowRight') {
-        showNextImg();
-    }
-});
+    modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) {
+            closeModalFunc();
+        }
+    });
 
-function showPrevImg() {
-    if (!currentGrid) return;
-    imagesArr = Array.from(currentGrid.querySelectorAll('img'));
-    if (currentImgIndex > 0) {
-        openModalAtIndex(currentImgIndex - 1, currentGrid);
-    } else {
-        openModalAtIndex(imagesArr.length - 1, currentGrid); // wrap around
-    }
-}
-function showNextImg() {
-    if (!currentGrid) return;
-    imagesArr = Array.from(currentGrid.querySelectorAll('img'));
-    if (currentImgIndex < imagesArr.length - 1) {
-        openModalAtIndex(currentImgIndex + 1, currentGrid);
-    } else {
-        openModalAtIndex(0, currentGrid); // wrap around
-    }
-}
-modalPrev.addEventListener('click', function(e) {
-    e.stopPropagation();
-    this.blur(); // Remove focus after click
-    showPrevImg();
-});
-modalNext.addEventListener('click', function(e) {
-    e.stopPropagation();
-    this.blur(); // Remove focus after click
-    showNextImg();
-});
-
-// Touch swipe support for mobile
-let touchStartX = null;
-modalImg.addEventListener('touchstart', function(e) {
-    if (e.touches.length === 1) {
-        touchStartX = e.touches[0].clientX;
-    }
-});
-modalImg.addEventListener('touchend', function(e) {
-    if (touchStartX === null) return;
-    let touchEndX = e.changedTouches[0].clientX;
-    let dx = touchEndX - touchStartX;
-    if (Math.abs(dx) > 40) {
-        if (dx > 0) {
+    document.addEventListener('keydown', function(e) {
+        if (!modalOverlay.classList.contains('active')) return;
+        if (e.key === 'Escape') {
+            closeModalFunc();
+        } else if (e.key === 'ArrowLeft') {
             showPrevImg();
-        } else {
+        } else if (e.key === 'ArrowRight') {
             showNextImg();
         }
+    });
+
+    function showPrevImg() {
+        if (!currentGrid) return;
+        imagesArr = Array.from(currentGrid.querySelectorAll('img'));
+        if (currentImgIndex > 0) {
+            openModalAtIndex(currentImgIndex - 1, currentGrid);
+        } else {
+            openModalAtIndex(imagesArr.length - 1, currentGrid); // wrap around
+        }
     }
-    touchStartX = null;
-});
+
+    function showNextImg() {
+        if (!currentGrid) return;
+        imagesArr = Array.from(currentGrid.querySelectorAll('img'));
+        if (currentImgIndex < imagesArr.length - 1) {
+            openModalAtIndex(currentImgIndex + 1, currentGrid);
+        } else {
+            openModalAtIndex(0, currentGrid); // wrap around
+        }
+    }
+
+    modalPrev.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.blur(); // Remove focus after click
+        showPrevImg();
+    });
+
+    modalNext.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.blur(); // Remove focus after click
+        showNextImg();
+    });
+
+    // Touch swipe support for mobile
+    let touchStartX = null;
+    modalImg.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+        }
+    });
+
+    modalImg.addEventListener('touchend', function(e) {
+        if (touchStartX === null) return;
+        let touchEndX = e.changedTouches[0].clientX;
+        let dx = touchEndX - touchStartX;
+        if (Math.abs(dx) > 40) {
+            if (dx > 0) {
+                showPrevImg();
+            } else {
+                showNextImg();
+            }
+        }
+        touchStartX = null;
+    });
+}
 
 // Add scroll down chevron functionality
 const chevron = document.querySelector('.chevron');
@@ -282,24 +296,43 @@ if (learnMoreBtn) {
 const backToTopBtn = document.getElementById('back-to-top');
 const ccRevokeBtn = document.querySelector('.cc-revoke'); // Get the cookie revoke button
 
-if (backToTopBtn || ccRevokeBtn) {
+if (backToTopBtn) {
+    // Initial check for visibility
+    const checkVisibility = () => {
+        const scrolledDown = window.scrollY > 200;
+        const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
+
+        if (scrolledDown || atBottom) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    };
+
+    // Check visibility on load
+    checkVisibility();
+
+    // Check visibility on scroll
+    window.addEventListener('scroll', checkVisibility);
+
+    // Add click handler
+    backToTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// Handle cookie revoke button separately
+if (ccRevokeBtn) {
     window.addEventListener('scroll', function () {
         const scrolledDown = window.scrollY > 200;
         const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
 
         if (scrolledDown || atBottom) {
-            if (backToTopBtn) backToTopBtn.classList.add('visible');
-            if (ccRevokeBtn) ccRevokeBtn.classList.add('visible'); // Make cookie button visible
+            ccRevokeBtn.classList.add('visible');
         } else {
-            if (backToTopBtn) backToTopBtn.classList.remove('visible');
-            if (ccRevokeBtn) ccRevokeBtn.classList.remove('visible'); // Make cookie button invisible
+            ccRevokeBtn.classList.remove('visible');
         }
     });
-    if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
 }
 
 // Section scroll-in animation for all pages
