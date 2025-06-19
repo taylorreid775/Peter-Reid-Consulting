@@ -45,10 +45,10 @@
         <h1 class="nav-title transparent"><a href="#">Peter Reid Consulting</a></h1>
         <nav aria-label="Top Bar Navigation" class="transparent">
             <ul class="nav-links">
-                <li><a href="our-story.html">Our Story</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="partners.html">Partners</a></li>
                 <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="our-story.html">Our Story</a></li>
+                <li><a href="partners.html">Partners</a></li>
                 <li><a href="#contact-section" class="contact-btn">Contact Us</a></li>
             </ul>
         </nav>
@@ -63,22 +63,6 @@
             <div class="intro-services">
                 We offer a wide range of landscape design services for front yards, back yards and entire properties, including gardens, patios, decks, retaining walls, driveways, walkways, water features, swimming pools, outdoor structures, built-in barbecues, outdoor kitchens, fencing, gates, and lighting.
             </div>
-        </div>
-        
-    </section>
-
-    <section class="bio-section section-card" id="bio">
-        <div class="card-photo desktop-only">
-            <img src="https://lh3.googleusercontent.com/d/11zpepMF6dtV_dlOw2qC9-D2Rr1vTqyxe" alt="Peter Reid portrait">
-        </div>
-        <div class="bio-summary section-card-text-content">
-            <h2>Meet Peter Reid</h2>
-            <div class="bio-quote">“Transforming outdoor spaces for over  40 years.”</div>
-            <div class="card-photo mobile-only">
-                <img src="https://lh3.googleusercontent.com/d/11zpepMF6dtV_dlOw2qC9-D2Rr1vTqyxe" alt="Peter Reid portrait">
-            </div>
-            <p>Peter Reid, a native Haligonian, discovered his passion for landscape design as a teen. After co-founding MacKinnon Reid & Associates in Ottawa and completing over 1000 creative projects, he returned to Halifax to raise his family and launch Peter Reid Consulting. With over  40 years of experience, Peter brings a unique, interactive approach to landscape design in the Maritimes—transforming outdoor spaces to be more beautiful, functional, and valuable.</p>
-            <a href="our-story.html" class="read-more">Read More &rarr;</a>
         </div>
     </section>
 
@@ -99,6 +83,68 @@
         </div>
         <div class="card-photo desktop-only">
             <img src="https://lh3.googleusercontent.com/d/1n-_G7TQ9qvMJdtS_u82o02wZMMie_s7F" alt="Design Concept">
+        </div>
+    </section>
+
+    <section class="portfolio-section section-card">
+        <div class="menu">
+            <h2>Our Portfolio</h2>
+            <div class="accent-line"></div>
+            <div id="tabs">
+                <input type="radio" name="tab" id="tab1" checked>
+                <label for="tab1">Front Yards</label>
+                <input type="radio" name="tab" id="tab2">
+                <label for="tab2">Back Yards</label>
+                <input type="radio" name="tab" id="tab3">
+                <label for="tab3">Whole Property</label>
+                <!-- Public Spaces tab temporarily disabled
+                <input type="radio" name="tab" id="tab4">
+                <label for="tab4">Public Spaces</label>
+                -->
+                <div class="marker"></div>
+            </div>
+        </div>
+        <div class="port-right">
+            <div class="image-grid">
+                <ul class="grid" data-tab="0" style="display: grid;">
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1_gqEqngJ_28JARFleCc5J2shatT8Q4W3" alt="Walkway 1" data-company="Placeholder Company A" data-company-url="https://companyA.example.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1ps4GKfonlMbYPwHIJJtISg4oAZkrZ-5O" alt="Walkway 2" data-company="Placeholder Company B" data-company-url="https://companyB.example.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1Xka3QqilioBW8zY4LjtikuXCy3UwDatz" alt="Walkway 3" data-company="Placeholder Company C" data-company-url="https://companyC.example.com"></li>
+                </ul>
+                <ul class="grid" data-tab="1" style="display: none;">
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1SMi4KJfvlrq7wecUgkEA0s_6k16PBy_q" alt="Walkway 1" data-company="Placeholder Company D" data-company-url="https://companyD.example.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1pRzI-okyFhhkCJmKgHc-9VIu-TyVzBve" alt="Walkway 2" data-company="Xcel Landscaping" data-company-url="https://xcellandscaping.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1eQsLcf9dq2qUE1pyVriz3KDrto_P-MgT" alt="Patio 3" data-company="Placeholder Company F" data-company-url="https://companyF.example.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/15uKDl2Zc563sIsan76fMH5oWOCr_ekgo" alt="Patio 3" data-company="Placeholder Company G" data-company-url="https://companyG.example.com"></li>
+                </ul>
+                <ul class="grid" data-tab="2" style="display: none;">
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1l7wZWuftisjRI9MvImq36beaC_SrpH1V" alt="Driveway 1" data-company="Placeholder Company H" data-company-url="https://companyH.example.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1pm9Or7PlaF9n-C-DS5WXSL5phQ6nN8mT" alt="Driveway 2" data-company="Placeholder Company I" data-company-url="https://companyI.example.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1aFINqmqNKvrJXkqbO8v-ZA1wGsFwU7dD" alt="Driveway 3" data-company="Placeholder Company J" data-company-url="https://companyJ.example.com"></li>
+                    <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/11q4vvBcIUb_0FrTPVlafrbZxwIqQV-eH" alt="Driveway 4" data-company="Placeholder Company K" data-company-url="https://companyK.example.com"></li>
+                </ul>
+                <!-- Public Spaces grid temporarily disabled
+                <ul class="grid" data-tab="4" style="display: none;">
+                    <li class="grid-item"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDBmZjAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPldhbGwgNDwvdGV4dD48L3N2Zz4=" alt="Wall 4" data-company="Placeholder Company O" data-company-url="https://companyO.example.com"></li>
+                </ul>
+                -->
+            </div>
+            <a href="portfolio.html" class="read-more port-btn">See Full Portfolio &rarr;</a>
+        </div>
+    </section>
+
+    <section class="bio-section section-card" id="bio">
+        <div class="card-photo desktop-only">
+            <img src="https://lh3.googleusercontent.com/d/11zpepMF6dtV_dlOw2qC9-D2Rr1vTqyxe" alt="Peter Reid portrait">
+        </div>
+        <div class="bio-summary section-card-text-content">
+            <h2>Meet Peter Reid</h2>
+            <div class="bio-quote">“Transforming outdoor spaces for over  40 years.”</div>
+            <div class="card-photo mobile-only">
+                <img src="https://lh3.googleusercontent.com/d/11zpepMF6dtV_dlOw2qC9-D2Rr1vTqyxe" alt="Peter Reid portrait">
+            </div>
+            <p>Peter Reid, a native Haligonian, discovered his passion for landscape design as a teen. After co-founding MacKinnon Reid & Associates in Ottawa and completing over 1000 creative projects, he returned to Halifax to raise his family and launch Peter Reid Consulting. With over  40 years of experience, Peter brings a unique, interactive approach to landscape design in the Maritimes—transforming outdoor spaces to be more beautiful, functional, and valuable.</p>
+            <a href="our-story.html" class="read-more">Read More &rarr;</a>
         </div>
     </section>
     
@@ -130,56 +176,6 @@
             </div>
             <a href="partners.html" class="read-more">View All Partners &rarr;</a>
         </div>
-    </section>
-
-    <!-- Build Your Dream section now starts on white background -->
-    <section class="portfolio-section section-card">
-            <div class="menu">
-                <h2>Our Portfolio</h2>
-                <div class="accent-line"></div>
-                <div id="tabs">
-                    <input type="radio" name="tab" id="tab1" checked>
-                    <label for="tab1">Front Yards</label>
-                    <input type="radio" name="tab" id="tab2">
-                    <label for="tab2">Back Yards</label>
-                    <input type="radio" name="tab" id="tab3">
-                    <label for="tab3">Whole Property</label>
-                    <!-- Public Spaces tab temporarily disabled
-                    <input type="radio" name="tab" id="tab4">
-                    <label for="tab4">Public Spaces</label>
-                    -->
-                    <div class="marker"></div>
-                </div>
-
-            </div>
-
-            <div class="port-right">
-                <div class="image-grid">
-                    <ul class="grid" data-tab="0" style="display: grid;">
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1_gqEqngJ_28JARFleCc5J2shatT8Q4W3" alt="Walkway 1" data-company="Placeholder Company A" data-company-url="https://companyA.example.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1ps4GKfonlMbYPwHIJJtISg4oAZkrZ-5O" alt="Walkway 2" data-company="Placeholder Company B" data-company-url="https://companyB.example.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1Xka3QqilioBW8zY4LjtikuXCy3UwDatz" alt="Walkway 3" data-company="Placeholder Company C" data-company-url="https://companyC.example.com"></li>
-                    </ul>
-                    <ul class="grid" data-tab="1" style="display: none;">
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1SMi4KJfvlrq7wecUgkEA0s_6k16PBy_q" alt="Walkway 1" data-company="Placeholder Company D" data-company-url="https://companyD.example.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1pRzI-okyFhhkCJmKgHc-9VIu-TyVzBve" alt="Walkway 2" data-company="Xcel Landscaping" data-company-url="https://xcellandscaping.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1eQsLcf9dq2qUE1pyVriz3KDrto_P-MgT" alt="Patio 3" data-company="Placeholder Company F" data-company-url="https://companyF.example.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/15uKDl2Zc563sIsan76fMH5oWOCr_ekgo" alt="Patio 3" data-company="Placeholder Company G" data-company-url="https://companyG.example.com"></li>
-                    </ul>
-                    <ul class="grid" data-tab="2" style="display: none;">
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1l7wZWuftisjRI9MvImq36beaC_SrpH1V" alt="Driveway 1" data-company="Placeholder Company H" data-company-url="https://companyH.example.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1pm9Or7PlaF9n-C-DS5WXSL5phQ6nN8mT" alt="Driveway 2" data-company="Placeholder Company I" data-company-url="https://companyI.example.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/1aFINqmqNKvrJXkqbO8v-ZA1wGsFwU7dD" alt="Driveway 3" data-company="Placeholder Company J" data-company-url="https://companyJ.example.com"></li>
-                        <li class="grid-item"><img src="https://lh3.googleusercontent.com/d/11q4vvBcIUb_0FrTPVlafrbZxwIqQV-eH" alt="Driveway 4" data-company="Placeholder Company K" data-company-url="https://companyK.example.com"></li>
-                    </ul>
-                    <!-- Public Spaces grid temporarily disabled
-                    <ul class="grid" data-tab="4" style="display: none;">
-                        <li class="grid-item"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUwIiBoZWlnaHQ9IjI2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDBmZjAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPldhbGwgNDwvdGV4dD48L3N2Zz4=" alt="Wall 4" data-company="Placeholder Company O" data-company-url="https://companyO.example.com"></li>
-                    </ul>
-                    -->
-                </div>
-                <a href="portfolio.html" class="read-more port-btn">See Full Portfolio &rarr;</a>
-            </div>
     </section>
     
     <section class="contact-section section-card" id="contact-section">
@@ -226,10 +222,10 @@
         <nav aria-label="Sidebar Navigation">
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="our-story.html">Our Story</a></li>
                 <li><a href="services.html">Services</a></li>
-                <li><a href="partners.html">Partners</a></li>
                 <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="our-story.html">Our Story</a></li>
+                <li><a href="partners.html">Partners</a></li>
                 <li><a href="#contact-section" class="contact-btn">Contact Us</a></li>
             </ul>
         </nav>
