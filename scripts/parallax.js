@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+    function isMobile() {
+        return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+    }
+
+    if (isMobile()) {
+        // Do not run parallax on mobile devices
+        return;
+    }
+
     const hero = document.querySelector('.hero');
     const heroImage = document.querySelector('.hero-image');
     let ticking = false;
