@@ -356,4 +356,31 @@ if (ccRevokeBtn) {
     sections.forEach(section => observer.observe(section));
 })();
 
+// Footer padding logic to prevent overlap with floating UI
+function updateFooterPadding() {
+    const footer = document.querySelector('footer');
+    const cookieBanner = document.querySelector('.cc-window');
+    const backToTopBtn = document.getElementById('back-to-top');
+    let bannerVisible = false;
+    let backToTopVisible = false;
+    if (cookieBanner && window.getComputedStyle(cookieBanner).opacity === '1' && window.getComputedStyle(cookieBanner).visibility !== 'hidden') {
+        bannerVisible = true;
+    }
+    if (backToTopBtn && backToTopBtn.classList.contains('visible')) {
+        backToTopVisible = true;
+    }
+    if (footer) {
+        if (bannerVisible || backToTopVisible) {
+            footer.classList.add('footer-padding');
+        } else {
+            footer.classList.remove('footer-padding');
+        }
+    }
+}
+
+window.addEventListener('scroll', updateFooterPadding);
+window.addEventListener('resize', updateFooterPadding);
+document.addEventListener('DOMContentLoaded', updateFooterPadding);
+setInterval(updateFooterPadding, 500);
+
 

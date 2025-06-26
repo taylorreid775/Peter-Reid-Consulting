@@ -155,9 +155,9 @@ style.textContent = `
         flex-wrap: wrap;
     }
     .cc-revoke {
-        right: auto !important;
-        bottom: 18px !important;
-        left: 18px !important;
+        right: auto;
+        bottom: 32px;
+        left: 32px !important;
         top: auto !important;
         background: rgba(255,255,255,0.92) !important;
         color: #207a3c !important;
@@ -242,6 +242,10 @@ style.textContent = `
             margin-left: 6px !important;
             opacity: 0.8 !important;
             text-decoration: underline !important;
+        }
+        .cc-revoke {
+            left: 18px !important;
+            bottom: 18px !important;
         }
     }
     

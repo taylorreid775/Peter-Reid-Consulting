@@ -2007,3 +2007,10 @@ body.no-scroll, html.no-scroll {
         margin: 5px 0 !important; /* Stack buttons vertically */
     }
 }
+
+/* Footer padding to prevent overlap with floating UI */
+@media (max-width: 700px) {
+  .footer-padding {
+    padding-bottom: 60px;
+  }
+}
