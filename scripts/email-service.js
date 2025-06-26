@@ -4,11 +4,15 @@ window.onload = function () {
 
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
+        // Capitalize first letter of each word in a name string
+        function capitalizeName(name) {
+            return name.replace(/\b\w/g, char => char.toUpperCase()).replace(/\B\w/g, char => char.toLowerCase());
+        }
         contactForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
             const templateParams = {
-                name: document.getElementById('name').value,
+                name: capitalizeName(document.getElementById('name').value),
                 email: document.getElementById('email').value,
                 message: document.getElementById('message').value
             };

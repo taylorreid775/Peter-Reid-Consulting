@@ -41,7 +41,7 @@ window.cookieconsent.initialise({
         "dismiss": "Decline",
         "allow": "Accept",
         "link": "Learn more",
-        "href": "cookie-policy.html"
+        "href": "/cookie-policy/"
     },
     "cookie": {
         "name": "cookieconsent_status",
