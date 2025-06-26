@@ -156,8 +156,8 @@ style.textContent = `
     }
     .cc-revoke {
         right: auto !important;
-        bottom: 32px !important;
-        left: 32px !important;
+        bottom: 18px !important;
+        left: 18px !important;
         top: auto !important;
         background: rgba(255,255,255,0.92) !important;
         color: #207a3c !important;
