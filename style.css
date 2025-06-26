@@ -968,7 +968,7 @@ footer {
     align-items: center;
     height: auto;
     gap: 48px;
-    background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255);
     border-radius: 18px;
     padding: 32px 28px;
     margin: 32px auto;
