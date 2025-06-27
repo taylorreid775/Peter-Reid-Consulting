@@ -7,7 +7,7 @@ html, body {
     position: relative;
     z-index: 1;
     background: #fff;
-    width: 100vw;
+    width: 100%;
 }
 
 * {
