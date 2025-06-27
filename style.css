@@ -272,7 +272,7 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
     height: 100%;
     background-color: #333;
     padding: 20px 0;
-    z-index: 15;
+    z-index: 10003;
     transition: right 0.3s ease;
 }
 

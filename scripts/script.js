@@ -153,7 +153,9 @@ if (modalOverlay && modalImg && closeModal) {
         }, 180);
         modalImg.classList.add('modal-img-scaled');
         modalOverlay.classList.add('active');
+        // Disable scrolling
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
         // Hide back-to-top and cookie policy button
         const backToTopBtn = document.getElementById('back-to-top');
         const ccRevokeBtn = document.querySelector('.cc-revoke');
@@ -174,7 +176,9 @@ if (modalOverlay && modalImg && closeModal) {
     function closeModalFunc() {
         modalOverlay.classList.remove('active');
         modalImg.classList.remove('modal-img-scaled', 'modal-img-fadein', 'modal-img-fadeout');
+        // Re-enable scrolling
         document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
         // Show back-to-top and cookie policy button
         const backToTopBtn = document.getElementById('back-to-top');
         const ccRevokeBtn = document.querySelector('.cc-revoke');
