@@ -246,7 +246,7 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
     width: 30px;
     height: 21px;
     cursor: pointer;
-    z-index: 100;
+    z-index: 10004;
     position: fixed;
     top: 30px;
     right: 30px;
@@ -869,7 +869,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    z-index: 10005;
     visibility: hidden;
     transform: scale(0);
     transition: visibility 0s linear 0.3s, transform 0.3s ease;
