@@ -19,6 +19,15 @@ window.onload = function () {
 
             emailjs.send('service_4hntcjv', 'template_cp0p4lr', templateParams)
                 .then(response => {
+                    // Track successful form submission with Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit', {
+                            'event_category': 'contact',
+                            'event_label': 'contact_form',
+                            'value': 1
+                        });
+                    }
+
                     const responseMessage = document.getElementById("response-message");
                     responseMessage.textContent = "Message sent successfully!";
                     responseMessage.classList.remove("invisible", "error");
@@ -32,6 +41,15 @@ window.onload = function () {
                     }, 5000);
                 })
                 .catch(error => {
+                    // Track failed form submission with Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'form_submit_error', {
+                            'event_category': 'contact',
+                            'event_label': 'contact_form_error',
+                            'value': 1
+                        });
+                    }
+
                     const responseMessage = document.getElementById("response-message");
                     console.error("EmailJS Error:", error);
                     responseMessage.textContent = "An error occurred: " + error.text;
