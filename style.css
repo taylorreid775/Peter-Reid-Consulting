@@ -16,11 +16,12 @@ html, body {
 
 body {
     margin: 0;
-    font-family: "Josefin Sans", sans-serif;
-    font-weight: 300; /* Regular weight */
+    font-family: Inter, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: 400; /* Readable default weight */
     font-style: normal;
+    line-height: 1.5;
     background-color: #f9f9f9;
-    color: #333;
+    color: #313130;
     min-width: 400px;
     /* Soft green SVG wave background that scrolls with the page */
     background-image: url('data:image/svg+xml;utf8,<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 400 Q480 300 960 400 T1920 400 V1080 H0 Z" fill="%23b6e2b3" fill-opacity="0.32"/><path d="M0 650 Q480 550 960 650 T1920 650 V1080 H0 Z" fill="%2396cfa3" fill-opacity="0.13"/></svg>');
@@ -694,10 +695,6 @@ footer {
     .contact-links p {
         margin: 0 10px;
     }
-}
-
-.card-photo.mobile-only {
-    /* margin: 18px 0; */
 }
 
 /* Remove old image-set styles */
