@@ -296,15 +296,20 @@ function enableCookies() {
     if (contactForm) {
         contactForm.style.display = 'block';
         
-        // Load EmailJS script dynamically
+        // Load EmailJS script dynamically and attach form handler only after it loads
         if (!document.querySelector('script[src*="email.min.js"]')) {
             const script = document.createElement('script');
             script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
             script.onload = function() {
-                // Initialize EmailJS after script loads
                 emailjs.init("5FsB_4WIQNIEQOmz5");
+                if (typeof window.attachContactFormHandler === 'function') {
+                    window.attachContactFormHandler();
+                }
             };
             document.body.appendChild(script);
+        } else if (typeof emailjs !== 'undefined' && typeof window.attachContactFormHandler === 'function') {
+            // Script already in page (e.g. from another tab or race)
+            window.attachContactFormHandler();
         }
     }
 }
