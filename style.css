@@ -356,7 +356,8 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
 }
 
 .contact-form {
-    width: 70%;
+    flex: 1 1 0;
+    width: auto;
     background: white;
     text-align: left;
 }
@@ -420,7 +421,7 @@ nav[aria-label="Top Bar Navigation"] .nav-links {
     background: #b6e2b3;
 }
 
-input, textarea {
+input, textarea, select {
     width: 100%;
     padding: 12px 15px;
     margin: 8px 0 20px 0;
@@ -431,9 +432,10 @@ input, textarea {
     display: block;
     box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #fff;
 }
 
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: #b6e2b3;
     box-shadow: 0 0 0 2px #b6e2b3;
@@ -1027,6 +1029,178 @@ footer {
     align-items: stretch;
     gap: 32px;
     width: 100%;
+}
+
+.contact-intro {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.contact-trust {
+    font-size: 0.95rem;
+    color: #207a3c;
+    font-style: italic;
+    margin: 0 0 16px 0;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.contact-form .optional {
+    font-weight: 400;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    min-width: 0;
+}
+
+.form-group label + input,
+.form-group label + select,
+.form-group label + textarea,
+.form-row .form-group input,
+.form-row .form-group select {
+    margin-top: 0;
+}
+
+.contact-submit-btn {
+    margin-top: 4px;
+}
+
+.contact-form-note,
+.contact-side-note {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 16px 0 0 0;
+}
+
+.contact-form-note a,
+.contact-side-note a {
+    color: #207a3c;
+    font-weight: 600;
+}
+
+.contact-links-prominent {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px;
+    padding: 0 !important;
+    margin-top: 8px;
+}
+
+.contact-call-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 20px;
+    background: #207a3c;
+    color: #fff !important;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-call-btn:hover {
+    background: #145a28;
+    transform: scale(1.02);
+}
+
+.contact-call-link {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.contact-cta-block {
+    align-items: flex-start;
+    margin-top: 24px;
+}
+
+.contact-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.contact-cta-call {
+    font-size: 1rem;
+    padding: 12px 20px;
+}
+
+.hero-btn-call {
+    background: #207a3c;
+    color: #fff;
+    border: 2px solid #207a3c;
+}
+
+.mobile-call-bar {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .hero-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .mobile-call-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+        background: #207a3c;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        z-index: 19990;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .mobile-call-bar-icon {
+        width: 22px;
+        height: 22px;
+        filter: brightness(0) invert(1);
+    }
+
+    body {
+        padding-bottom: calc(56px + env(safe-area-inset-bottom));
+    }
+
+    .contact-cta-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .contact-cta-call {
+        text-align: center;
+    }
 }
 
 .card-photo {
