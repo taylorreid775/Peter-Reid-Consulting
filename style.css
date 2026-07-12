@@ -1,12 +1,12 @@
 /* General Reset */
-html, body {
+html {
     scroll-behavior: smooth;
     overscroll-behavior-y: none; /* Prevents overscroll on vertical scrolling */
     max-width: 100%;
-    overflow-x: hidden;
-    position: relative;
-    z-index: 1;
-    background: #fff;
+    /* clip on html only — overflow-x:hidden on both html+body breaks Firefox trackpad scroll
+       (scrollbar drag still works; two-finger gestures get misrouted as horizontal scroll) */
+    overflow-x: clip;
+    overflow-y: auto;
     width: 100%;
 }
 
@@ -16,6 +16,10 @@ html, body {
 
 body {
     margin: 0;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
     font-family: Inter, system-ui, -apple-system, "Helvetica Neue", "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: 400; /* Readable default weight */
     font-style: normal;

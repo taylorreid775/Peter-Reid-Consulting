@@ -153,8 +153,7 @@ if (modalOverlay && modalImg && closeModal) {
         }, 180);
         modalImg.classList.add('modal-img-scaled');
         modalOverlay.classList.add('active');
-        // Disable scrolling
-        document.body.style.overflow = 'hidden';
+        // Disable scrolling (html only — setting overflow on both html+body breaks Firefox trackpad scroll)
         document.documentElement.style.overflow = 'hidden';
         // Hide back-to-top and cookie policy button
         const backToTopBtn = document.getElementById('back-to-top');
@@ -177,7 +176,6 @@ if (modalOverlay && modalImg && closeModal) {
         modalOverlay.classList.remove('active');
         modalImg.classList.remove('modal-img-scaled', 'modal-img-fadein', 'modal-img-fadeout');
         // Re-enable scrolling
-        document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
         // Show back-to-top and cookie policy button
         const backToTopBtn = document.getElementById('back-to-top');
