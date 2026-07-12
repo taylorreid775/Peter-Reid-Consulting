@@ -12,6 +12,8 @@ function getCookieConsentStatus() {
     return null;
 }
 
+let cookiePopup = null;
+
 function loadScript(src, id) {
     if (document.querySelector(`script[src="${src}"]`) || (id && document.getElementById(id))) {
         return;
@@ -58,8 +60,7 @@ function initializePage() {
     }
 }
 
-// Initialize cookie consent
-window.cookieconsent.initialise({
+const cookieConsentOptions = {
     "palette": {
         "popup": {
             "background": "#ffffff",
@@ -84,6 +85,10 @@ window.cookieconsent.initialise({
         "domain": window.location.hostname,
         "expiryDays": 365
     },
+    "law": {
+        "countryCode": "CA",
+        "regionalLaw": false
+    },
     "position": "bottom-right",
     "theme": "classic",
     "revokable": false,
@@ -104,9 +109,12 @@ window.cookieconsent.initialise({
     "onRevokeChoice": function () {
         disableAnalytics();
     }
+};
+
+window.cookieconsent.initialise(cookieConsentOptions, function (popup) {
+    cookiePopup = popup;
 });
 
-// Add custom styles
 const style = document.createElement('style');
 style.textContent = `
     .cc-window {
@@ -218,24 +226,13 @@ document.head.appendChild(style);
 
 document.addEventListener('click', function (event) {
     const link = event.target.closest('.cookie-settings-link');
-    if (!link || !window.cookieconsent) {
+    if (!link) {
         return;
     }
     event.preventDefault();
-    window.cookieconsent.show();
+    if (cookiePopup) {
+        cookiePopup.revokeChoice();
+    }
 });
 
 initializePage();
-
-const originalHide = window.cookieconsent.hide;
-window.cookieconsent.hide = function() {
-    const popup = document.querySelector('.cc-window');
-    if (popup) {
-        popup.classList.add('cc-invisible');
-        setTimeout(() => {
-            originalHide.call(this);
-        }, 300);
-    } else {
-        originalHide.call(this);
-    }
-};
