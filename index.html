@@ -194,22 +194,29 @@
         <div class="contact-box">
             <form id="contact-form" class="contact-form">
                 <div class="contact-form-header">
-                    <div class="form-row contact-form-header-labels">
-                        <div class="form-group">
-                            <label for="name">Your Name<span class="required"> *</span></label>
+                    <div class="contact-form-header-fields">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name<span class="required"> *</span></label>
+                                <input type="text" id="name" name="name" required autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone<span class="required"> *</span></label>
+                                <input type="tel" id="phone" name="phone" required autocomplete="tel">
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="phone">Phone<span class="required"> *</span></label>
+                            <label for="email">Email<span class="required"> *</span></label>
+                            <input type="email" id="email" name="email" required autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Property Location<span class="required"> *</span></label>
+                            <input type="text" id="location" name="location" placeholder="e.g. Halifax, Bedford, Dartmouth" required>
                         </div>
                     </div>
-                    <div class="form-row contact-form-header-inputs">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" required autocomplete="name">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone" required autocomplete="tel">
-                        </div>
-                    </div>
+
                     <div class="contact-links desktop-only contact-form-sidebar">
                         <div class="contact-sidebar-card">
                             <a href="tel:+19024412424" title="Call Us" class="contact-sidebar-link">
@@ -226,16 +233,6 @@
                 </div>
 
                 <div class="contact-form-body">
-                    <div class="form-group">
-                        <label for="email">Email<span class="required"> *</span></label>
-                        <input type="email" id="email" name="email" required autocomplete="email">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="location">Property Location<span class="required"> *</span></label>
-                        <input type="text" id="location" name="location" placeholder="e.g. Halifax, Bedford, Dartmouth" required>
-                    </div>
-
                     <div class="form-row">
                         <div class="form-group">
                             <label for="project-type">Project Type<span class="required"> *</span></label>

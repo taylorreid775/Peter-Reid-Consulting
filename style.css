@@ -1055,34 +1055,21 @@ footer {
     .contact-form-header {
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
-        grid-template-rows: auto auto;
-        column-gap: 32px;
-        row-gap: 0;
+        gap: 32px;
+        align-items: start;
     }
 
-    .contact-form-header-labels {
+    .contact-form-header-fields {
         grid-column: 1;
-        grid-row: 1;
-    }
-
-    .contact-form-header-inputs {
-        grid-column: 1;
-        grid-row: 2;
     }
 
     .contact-form-sidebar {
         grid-column: 2;
-        grid-row: 2;
         width: auto !important;
         min-width: 0;
         padding: 0 !important;
         margin: 0;
         align-self: start;
-    }
-
-    .contact-form-header-inputs .form-group input {
-        margin-top: 0;
-        margin-bottom: 20px;
     }
 }
 
