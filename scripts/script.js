@@ -157,9 +157,7 @@ if (modalOverlay && modalImg && closeModal) {
         document.documentElement.style.overflow = 'hidden';
         // Hide back-to-top and cookie policy button
         const backToTopBtn = document.getElementById('back-to-top');
-        const ccRevokeBtn = document.querySelector('.cc-revoke');
         if (backToTopBtn) backToTopBtn.style.display = 'none';
-        if (ccRevokeBtn) ccRevokeBtn.style.display = 'none';
     }
 
     gridImages.forEach((img) => {
@@ -179,9 +177,7 @@ if (modalOverlay && modalImg && closeModal) {
         document.documentElement.style.overflow = '';
         // Show back-to-top and cookie policy button
         const backToTopBtn = document.getElementById('back-to-top');
-        const ccRevokeBtn = document.querySelector('.cc-revoke');
         if (backToTopBtn) backToTopBtn.style.display = '';
-        if (ccRevokeBtn) ccRevokeBtn.style.display = '';
     }
 
     closeModal.addEventListener('click', function(e) {
@@ -296,7 +292,6 @@ if (learnMoreBtn) {
 
 // Back to Top Button functionality
 const backToTopBtn = document.getElementById('back-to-top');
-const ccRevokeBtn = document.querySelector('.cc-revoke'); // Get the cookie revoke button
 
 if (backToTopBtn) {
     // Initial check for visibility
@@ -320,20 +315,6 @@ if (backToTopBtn) {
     // Add click handler
     backToTopBtn.addEventListener('click', function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-// Handle cookie revoke button separately
-if (ccRevokeBtn) {
-    window.addEventListener('scroll', function () {
-        const scrolledDown = window.scrollY > 200;
-        const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
-
-        if (scrolledDown || atBottom) {
-            ccRevokeBtn.classList.add('visible');
-        } else {
-            ccRevokeBtn.classList.remove('visible');
-        }
     });
 }
 

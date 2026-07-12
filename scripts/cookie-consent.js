@@ -86,13 +86,13 @@ window.cookieconsent.initialise({
     },
     "position": "bottom-right",
     "theme": "classic",
+    "revokable": false,
     "onInitialise": function () {
         if (this.hasConsented()) {
             enableAnalytics();
         } else {
             disableAnalytics();
         }
-        initialiseCcRevokeButton();
     },
     "onStatusChange": function () {
         if (this.hasConsented()) {
@@ -138,6 +138,9 @@ style.textContent = `
         pointer-events: none !important;
     }
     .cc-overlay {
+        display: none !important;
+    }
+    .cc-revoke {
         display: none !important;
     }
     .cc-message {
@@ -189,35 +192,6 @@ style.textContent = `
         justify-content: stretch !important;
         width: 100% !important;
     }
-    .cc-revoke {
-        right: auto;
-        bottom: 24px;
-        left: 24px !important;
-        top: auto !important;
-        background: rgba(255,255,255,0.92) !important;
-        color: #207a3c !important;
-        font-family: 'Poppins', 'Josefin Sans', sans-serif !important;
-        font-size: 0.95rem !important;
-        font-weight: 500 !important;
-        border-radius: 8px !important;
-        box-shadow: 0 2px 12px rgba(32,122,60,0.10) !important;
-        padding: 10px 16px !important;
-        z-index: 19994 !important;
-        pointer-events: none;
-        transition: opacity 0.3s, transform 0.3s ease;
-        opacity: 0;
-        letter-spacing: 0.01em !important;
-        min-width: unset !important;
-        text-align: center !important;
-        transform: none !important;
-    }
-    .cc-revoke.visible {
-        opacity: 1;
-        pointer-events: auto;
-    }
-    .cc-revoke:hover {
-        background: rgba(245,245,245,0.92) !important;
-    }
     @media (max-width: 768px) {
         .cc-window {
             right: 12px !important;
@@ -237,51 +211,21 @@ style.textContent = `
             font-size: 0.92rem !important;
             padding: 0.65rem 0.9rem !important;
         }
-        .cc-revoke {
-            left: 12px !important;
-            bottom: calc(68px + env(safe-area-inset-bottom)) !important;
-        }
     }
     
 `;
 document.head.appendChild(style);
 
-function updateRevokeButtonVisibility() {
-    const ccRevokeBtn = document.querySelector('.cc-revoke');
-    if (ccRevokeBtn) {
-        if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
-            const scrolledDown = window.scrollY > 200;
-            const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
-
-            if (scrolledDown || atBottom) {
-                ccRevokeBtn.style.transition = 'opacity 0.3s, transform 0.3s ease';
-                ccRevokeBtn.style.opacity = '1';
-                ccRevokeBtn.style.pointerEvents = 'auto';
-            } else {
-                ccRevokeBtn.style.opacity = '0';
-                ccRevokeBtn.style.pointerEvents = 'none';
-            }
-        } else {
-            ccRevokeBtn.style.transition = 'opacity 0.3s, transform 0.3s ease';
-            ccRevokeBtn.style.opacity = '1';
-            ccRevokeBtn.style.pointerEvents = 'auto';
-        }
+document.addEventListener('click', function (event) {
+    const link = event.target.closest('.cookie-settings-link');
+    if (!link || !window.cookieconsent) {
+        return;
     }
-}
+    event.preventDefault();
+    window.cookieconsent.show();
+});
 
 initializePage();
-window.addEventListener('scroll', updateRevokeButtonVisibility);
-
-function initialiseCcRevokeButton() {
-    const ccRevokeBtn = document.querySelector('.cc-revoke');
-    if (ccRevokeBtn) {
-        ccRevokeBtn.style.opacity = '0';
-        ccRevokeBtn.style.transition = 'opacity 0.3s, transform 0.3s ease';
-        ccRevokeBtn.style.pointerEvents = 'none';
-    }
-}
-
-initialiseCcRevokeButton();
 
 const originalHide = window.cookieconsent.hide;
 window.cookieconsent.hide = function() {

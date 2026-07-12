@@ -493,6 +493,16 @@ footer {
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 
+.cookie-settings-link {
+    color: #207a3c;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cookie-settings-link:hover {
+    text-decoration: underline;
+}
+
 .menu {
     display: flex;
     flex-direction: column;
@@ -1140,12 +1150,6 @@ footer {
 .contact-cta-call {
     font-size: 1rem;
     padding: 12px 20px;
-}
-
-.hero-btn-call {
-    background: #207a3c;
-    color: #fff;
-    border: 2px solid #207a3c;
 }
 
 .mobile-call-bar {

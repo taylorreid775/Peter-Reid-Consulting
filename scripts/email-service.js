@@ -9,6 +9,9 @@ function getFieldValue(id) {
 
 function buildInquiryMessage(fields) {
     const lines = [
+        `Name: ${fields.name}`,
+        `Email: ${fields.email}`,
+        `Phone: ${fields.phone}`,
         `Property location: ${fields.location}`,
         `Project type: ${fields.projectType}`,
         `Timeline: ${fields.timeline}`
