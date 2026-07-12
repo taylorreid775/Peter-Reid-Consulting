@@ -1056,7 +1056,7 @@ footer {
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
         gap: 32px;
-        align-items: start;
+        align-items: stretch;
     }
 
     .contact-form-header-fields {
@@ -1065,11 +1065,15 @@ footer {
 
     .contact-form-sidebar {
         grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        align-self: stretch;
         width: auto !important;
         min-width: 0;
         padding: 0 !important;
         margin: 0;
-        align-self: center;
     }
 }
 
@@ -1191,6 +1195,8 @@ footer {
 
 .contact-form-sidebar.contact-links {
     width: 100%;
+    justify-content: center;
+    text-align: left;
 }
 
 .contact-sidebar-card {
