@@ -1002,6 +1002,7 @@ footer {
     padding: 56px 32px 40px 32px;
     margin-top: 0;
     bottom: 0;
+    scroll-margin-top: 90px;
 }
 
 /* .bio-section, .services-section, .contact-section, .portfolio-section {

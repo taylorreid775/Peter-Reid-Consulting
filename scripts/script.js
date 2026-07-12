@@ -274,7 +274,7 @@ if (chevron) {
 }
 
 // Make Learn More button scroll to the same section
-const learnMoreBtn = document.querySelector('.hero-btn[href="#first-section"]');
+const learnMoreBtn = document.querySelector('.hero-btn[href="#intro-lead"]');
 if (learnMoreBtn) {
     learnMoreBtn.addEventListener('click', function(e) {
         e.preventDefault();
