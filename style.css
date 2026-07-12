@@ -35,6 +35,113 @@ body {
 }
 
 /* Hero Section Styles */
+body.is-loading {
+    overflow: hidden;
+}
+
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 30000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4fbf4;
+    transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.page-loader--hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.page-loader-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.page-loader-logo {
+    margin: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #207a3c;
+}
+
+.page-loader-spinner {
+    width: 42px;
+    height: 42px;
+    border: 3px solid rgba(32, 122, 60, 0.18);
+    border-top-color: #207a3c;
+    border-radius: 50%;
+    animation: page-loader-spin 0.9s linear infinite;
+}
+
+@keyframes page-loader-spin {
+    to { transform: rotate(360deg); }
+}
+
+body.is-loading .hero-title,
+body.is-loading .hero-title .main-title,
+body.is-loading .hero-title .consulting-title,
+body.is-loading .hero-quote,
+body.is-loading .hero-buttons,
+body.is-loading .scroll-down-indicator {
+    opacity: 0;
+}
+
+.hero-title,
+.hero-title .main-title,
+.hero-title .consulting-title,
+.hero-quote,
+.hero-buttons,
+.scroll-down-indicator {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.hero-title {
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.scroll-down-indicator {
+    transform: translateY(10px);
+}
+
+.hero-title.hero-animate-in,
+.hero-title .main-title.hero-animate-in,
+.hero-title .consulting-title.hero-animate-in,
+.hero-quote.hero-animate-in,
+.hero-buttons.hero-animate-in,
+.scroll-down-indicator.hero-animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-loader-spinner {
+        animation: none;
+        border-top-color: rgba(32, 122, 60, 0.18);
+    }
+
+    .hero-title,
+    .hero-title .main-title,
+    .hero-title .consulting-title,
+    .hero-quote,
+    .hero-buttons,
+    .scroll-down-indicator {
+        transform: none;
+        transition: none;
+    }
+}
+
 .hero {
     margin: 0;
     position: relative;
