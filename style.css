@@ -103,26 +103,35 @@ body.is-loading .scroll-down-indicator {
 .hero-buttons,
 .scroll-down-indicator {
     opacity: 0;
-    transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .hero-title {
-    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    transition: opacity 1.2s ease-out;
+}
+
+.hero-title .main-title,
+.hero-title .consulting-title,
+.hero-quote,
+.hero-buttons {
+    transform: translateY(20px);
 }
 
 .scroll-down-indicator {
-    transform: translateY(10px);
+    transition: opacity 0.8s ease-out;
 }
 
-.hero-title.hero-animate-in,
 .hero-title .main-title.hero-animate-in,
 .hero-title .consulting-title.hero-animate-in,
 .hero-quote.hero-animate-in,
-.hero-buttons.hero-animate-in,
-.scroll-down-indicator.hero-animate-in {
+.hero-buttons.hero-animate-in {
     opacity: 1;
     transform: translateY(0);
+}
+
+.hero-title.hero-animate-in,
+.scroll-down-indicator.hero-animate-in {
+    opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -137,8 +146,14 @@ body.is-loading .scroll-down-indicator {
     .hero-quote,
     .hero-buttons,
     .scroll-down-indicator {
-        transform: none;
         transition: none;
+    }
+
+    .hero-title .main-title,
+    .hero-title .consulting-title,
+    .hero-quote,
+    .hero-buttons {
+        transform: none;
     }
 }
 
