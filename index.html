@@ -26,7 +26,7 @@
                 opacity: 1 !important;
             }
             .hero-title .main-title, .hero-title .consulting-title,
-            .hero-quote, .hero-buttons {
+            .hero-title .hero-quote, .hero-title .hero-buttons {
                 transform: none !important;
             }
         </style>
@@ -36,7 +36,9 @@
     <div id="page-loader" class="page-loader" role="status" aria-live="polite" aria-label="Loading page">
         <div class="page-loader-inner">
             <p class="page-loader-logo">Peter Reid Consulting</p>
-            <div class="page-loader-spinner" aria-hidden="true"></div>
+            <div class="page-loader-bar" aria-hidden="true">
+                <div class="page-loader-bar-fill" id="page-loader-bar-fill"></div>
+            </div>
         </div>
     </div>
     <!-- Modal Structure -->

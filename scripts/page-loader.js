@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById('page-loader');
+    const barFill = document.getElementById('page-loader-bar-fill');
     const body = document.body;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isIndexPage = body.classList.contains('index-page');
@@ -13,8 +14,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const MIN_LOADER_MS = prefersReducedMotion ? 0 : 500;
     const MAX_LOADER_MS = 8000;
     const loadStartedAt = performance.now();
+    let heroDone = false;
+    let fontsDone = false;
+
+    function setProgress(value) {
+        if (!barFill) {
+            return;
+        }
+        barFill.style.width = `${Math.min(100, Math.max(0, value))}%`;
+    }
+
+    function updateProgress() {
+        let progress = 12;
+        if (heroDone) {
+            progress += 58;
+        }
+        if (fontsDone) {
+            progress += 22;
+        }
+        setProgress(progress);
+    }
+
+    setProgress(12);
 
     function finishLoading() {
+        setProgress(100);
         const elapsed = performance.now() - loadStartedAt;
         const remaining = prefersReducedMotion ? 0 : Math.max(0, MIN_LOADER_MS - elapsed);
 
@@ -46,11 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         heroImg.addEventListener('load', () => resolve(), { once: true });
         heroImg.addEventListener('error', () => resolve(), { once: true });
+    }).then(() => {
+        heroDone = true;
+        updateProgress();
     });
 
-    const fontsReady = document.fonts && document.fonts.ready
+    const fontsReady = (document.fonts && document.fonts.ready
         ? document.fonts.ready.catch(() => undefined)
-        : Promise.resolve();
+        : Promise.resolve()
+    ).then(() => {
+        fontsDone = true;
+        updateProgress();
+    });
 
     Promise.race([
         Promise.all([heroReady, fontsReady]),
