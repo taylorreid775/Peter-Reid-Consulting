@@ -1394,14 +1394,32 @@ footer {
 .contact-cta-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 14px;
     align-items: center;
     margin-top: 8px;
 }
 
-.contact-cta-call {
+.contact-cta-actions .read-more,
+.contact-cta-actions .contact-cta-call {
+    width: auto;
+    min-width: 0;
+    min-height: 48px;
+    padding: 12px 24px;
     font-size: 1rem;
-    padding: 12px 20px;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+
+.contact-cta-actions .read-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-cta-call {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mobile-call-bar {
@@ -1455,8 +1473,9 @@ footer {
         align-items: stretch;
     }
 
-    .contact-cta-call {
-        text-align: center;
+    .contact-cta-actions .read-more,
+    .contact-cta-actions .contact-cta-call {
+        width: 100%;
     }
 }
 
